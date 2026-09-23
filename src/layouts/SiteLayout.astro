@@ -1,0 +1,134 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const nav = [
+  { label: 'Home', href: '/', icon: '<path d="M3 9.5 12 3l9 6.5" /><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5" />' },
+  { label: 'Cover', href: '/cover/', icon: '<path d="M12 3 4 6v6c0 5 3.4 8.5 8 9 4.6-.5 8-4 8-9V6z" />' },
+  { label: 'Tombstones', href: '/tombstones/', icon: '<path d="M7 21V11a5 5 0 0 1 10 0v10" /><path d="M5 21h14" />' },
+  { label: 'Claims', href: '/claims/', icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /><path d="M9 13h6" /><path d="M9 17h6" />' },
+  { label: 'Learn', href: '/learn/', icon: '<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z" /><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z" />' },
+  { label: 'Branches', href: '/branches/', icon: '<path d="M20 10c0 5.5-8 12-8 12s-8-6.5-8-12a8 8 0 0 1 16 0z" /><circle cx="12" cy="10" r="3" />' },
+  { label: 'About', href: '/about/', icon: '<circle cx="12" cy="12" r="9" /><path d="M12 16v-4.5" /><path d="M12 8h.01" />' },
+];
+---
+
+<!doctype html>
+<html lang="en-ZA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#032E76" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | TIRO</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="/" aria-label="TIRO home" class="brand"><img src="/brand/tiro-logo-primary.svg" alt="TIRO" width="147" height="54" /></a>
+        <nav aria-label="Main navigation" class="desktop-nav">
+          {nav.map((item) => (
+            <a href={item.href} aria-current={Astro.url.pathname === item.href ? 'page' : undefined}>
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={item.icon} />
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        <a class="button button-primary header-cta" href="/cover/">Get cover <svg class="header-chevron" viewBox="0 0 275 420" aria-hidden="true" focusable="false"><path d="M 91 39 L 84 41 L 73 47 L 61 61 L 56 78 L 59 97 L 65 108 L 164 210 L 182 231 L 182 235 L 103 314 L 88 336 L 78 358 L 75 371 L 75 381 L 81 399 L 89 408 L 94 411 L 104 414 L 114 414 L 124 411 L 135 404 L 266 272 L 271 263 L 274 261 L 274 201 L 256 178 L 131 50 L 113 40 Z" fill="currentColor" fill-rule="evenodd"/></svg></a>
+        <details class="mobile-menu">
+          <summary aria-label="Open navigation">Menu <span aria-hidden="true">☰</span></summary>
+          <nav aria-label="Mobile navigation">
+            {nav.map((item) => (
+              <a href={item.href}>
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={item.icon} />
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </details>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer">
+      <div class="container footer-showcase">
+        <div class="footer-cta-copy"><p class="footer-eyebrow">Here for you</p><h2>Digital convenience.<br />Human support.</h2><p>Online or face-to-face. You choose.</p><div class="footer-cta-actions"><a class="footer-cta-link" href="/branches/">Find a branch <span aria-hidden="true">›</span></a><a class="footer-cta-link footer-cta-link--secondary" href="/cover/discover/">Get a quote <span aria-hidden="true">›</span></a><a class="footer-cta-link footer-cta-link--secondary" href="/cover/application/">Get covered <span aria-hidden="true">›</span></a><a class="footer-cta-link footer-cta-link--secondary" href="/branches/">Talk to TIRO <span aria-hidden="true">›</span></a></div></div>
+        <div class="footer-marquee" aria-label="TIRO tombstone gallery">
+          <div class="marquee-row marquee-row--reverse"><div class="marquee-track"><img src="/images/tombstones/06.webp" alt="" /><img src="/images/tombstones/05.webp" alt="" /><img src="/images/tombstones/04.webp" alt="" /><img src="/images/tombstones/03.webp" alt="" /><img src="/images/tombstones/06.webp" alt="" /><img src="/images/tombstones/05.webp" alt="" /><img src="/images/tombstones/04.webp" alt="" /><img src="/images/tombstones/03.webp" alt="" /></div></div>
+          <div class="marquee-row"><div class="marquee-track"><img src="/images/tombstones/02.webp" alt="" /><img src="/images/tombstones/03.webp" alt="" /><img src="/images/tombstones/04.webp" alt="" /><img src="/images/tombstones/05.webp" alt="" /><img src="/images/tombstones/02.webp" alt="" /><img src="/images/tombstones/03.webp" alt="" /><img src="/images/tombstones/04.webp" alt="" /><img src="/images/tombstones/05.webp" alt="" /></div></div>
+        </div>
+      </div>
+      <div class="container footer-inner">
+        <nav aria-label="Footer navigation"><img class="footer-nav-logo" src="/brand/tiro-logo-reversed-white.svg" alt="TIRO" width="150" height="55" />{nav.map((item) => <a href={item.href}>{item.label}</a>)}</nav>
+        <div class="underwriter"><img src="/brand/kga-life-logo-gold.svg" alt="KGA Life" width="96" height="53" /><p>Tiro funeral cover is underwritten by KGA Life Insurance.</p></div>
+      </div>
+      <div class="container footer-bottom">© {new Date().getFullYear()} TIRO</div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .skip-link { position: absolute; top: -100px; left: 16px; z-index: 100; padding: 12px 18px; background: white; color: var(--tiro-blue); }
+  .skip-link:focus { top: 12px; }
+  .site-header { position: relative; z-index: 10; border-bottom: 1px solid var(--tiro-light-grey); background: white; }
+  .header-inner { display: flex; min-height: 82px; align-items: center; gap: 24px; }
+  .brand { flex: 0 0 auto; }
+  .brand img { width: 118px; height: auto; }
+  .desktop-nav { display: none; align-items: center; justify-content: center; gap: clamp(12px, 1.7vw, 28px); flex: 1; }
+  .desktop-nav a { position: relative; display: inline-flex; align-items: center; gap: 7px; padding-block: 4px; color: var(--tiro-navy); font-size: .9625rem; font-weight: 800; text-decoration: none; }
+  .nav-icon { flex: 0 0 auto; width: 17px; height: 17px; }
+  .desktop-nav a::before { content: ''; position: absolute; inset: auto 0 0 0; height: 2px; background: var(--tiro-blue); transform: scaleX(0); transition: transform 200ms ease; }
+  .desktop-nav a:hover { color: var(--tiro-red); }
+  .desktop-nav a[aria-current="page"] { color: var(--tiro-red); }
+  .desktop-nav a:hover::before, .desktop-nav a:focus-visible::before, .desktop-nav a[aria-current="page"]::before { transform: scaleX(1); }
+  .header-cta { display: none; min-height: 52px; gap: 10px; padding: 10px 18px; border-width: 4px; white-space: nowrap; border-color: var(--tiro-blue); background: white; color: var(--tiro-red); font-size: 1.1875rem; line-height: 1; }
+  .header-cta:hover { border-color: var(--tiro-blue); background: var(--tiro-soft-white); color: var(--tiro-red); }
+  .header-chevron { display: block; width: 8px; height: 13px; flex: 0 0 8px; color: var(--tiro-red); }
+  .mobile-menu { margin-left: auto; color: var(--tiro-blue); font-size: 1.0625rem; font-weight: 800; }
+  .mobile-menu summary { min-height: 48px; display: flex; align-items: center; gap: 10px; cursor: pointer; list-style: none; }
+  .mobile-menu summary::-webkit-details-marker { display: none; }
+  .mobile-menu nav { position: absolute; top: 100%; left: 0; right: 0; display: grid; padding: 16px 20px 24px; border-bottom: 1px solid var(--tiro-light-grey); background: white; box-shadow: 0 12px 24px #071a3d12; }
+  .mobile-menu nav a { display: flex; min-height: 48px; align-items: center; gap: 10px; text-decoration: none; }
+  .mobile-menu nav .nav-icon { width: 19px; height: 19px; color: var(--tiro-blue); }
+  .site-footer { overflow: hidden; padding-top: 0; background: var(--tiro-navy); color: white; }
+  .footer-showcase { display: grid; gap: 32px; padding-block: 48px; }
+  .footer-cta-copy { display: grid; justify-items: start; align-content: center; }
+  .footer-eyebrow { margin: 0 0 10px; color: #bcd5ff; font-size: .76rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .footer-cta-copy h2 { max-width: 13ch; margin: 0; color: white; font-size: clamp(2rem, 4.2vw, 3.7rem); line-height: .98; letter-spacing: -.05em; }
+  .footer-cta-copy p:not(.footer-eyebrow) { margin: 14px 0 0; color: #dbe8ff; font-size: 1rem; }
+  .footer-cta-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .footer-cta-link { display: inline-flex; min-height: 44px; align-items: center; gap: 12px; padding: 10px 17px; border-radius: 99px; background: var(--tiro-red); color: white; font-size: .9rem; font-weight: 800; text-decoration: none; }
+  .footer-cta-link:hover { background: #ff3144; text-decoration: none; }
+  .footer-cta-link--secondary { border: 1px solid #ffffff66; background: transparent; }
+  .footer-cta-link--secondary:hover { border-color: white; background: #ffffff16; }
+  .footer-marquee { display: grid; align-content: center; gap: 16px; overflow: hidden; min-height: 400px; margin-inline: -20px; }
+  .marquee-row { display: flex; width: max-content; animation: footer-marquee 30s linear infinite; }
+  .marquee-row--reverse { animation-direction: reverse; animation-duration: 34s; }
+  .marquee-track { display: flex; gap: 16px; padding-right: 16px; }
+  .marquee-track img { width: 264px; height: 192px; flex: 0 0 auto; border-radius: 18px; object-fit: cover; box-shadow: 0 14px 28px #0004; }
+  .footer-marquee:hover .marquee-row { animation-play-state: paused; }
+  @keyframes footer-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .footer-inner { display: grid; gap: 32px; padding-top: 30px; border-top: 1px solid #ffffff26; }
+  .footer-inner p { max-width: 310px; font-size: .95rem; }
+  .footer-inner nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 24px; }
+  .footer-nav-logo { grid-column: 1; grid-row: 1; width: 132px; height: auto; margin-bottom: 10px; }
+  .footer-inner nav a:nth-of-type(1) { grid-column: 1; grid-row: 2; }
+  .footer-inner nav a:nth-of-type(2) { grid-column: 2; grid-row: 2; }
+  .footer-inner nav a:nth-of-type(3) { grid-column: 1; grid-row: 3; }
+  .footer-inner nav a:nth-of-type(4) { grid-column: 2; grid-row: 3; }
+  .footer-inner nav a:nth-of-type(5) { grid-column: 1; grid-row: 4; }
+  .footer-inner nav a:nth-of-type(6) { grid-column: 2; grid-row: 4; }
+  .footer-inner nav a { min-height: 44px; display: flex; align-items: center; text-decoration: none; }
+  .footer-inner a:hover { text-decoration: underline; }
+  .underwriter img { width: 96px; }
+  .underwriter p { font-size: .875rem; }
+  .footer-bottom { margin-top: 30px; padding-block: 20px; border-top: 1px solid #ffffff30; font-size: .875rem; }
+  @media (min-width: 760px) { .footer-showcase { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center; padding-block: 56px; } .footer-marquee { margin-inline: 0 -20px; } .footer-inner { grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr); align-items: start; } }
+  @media (min-width: 1040px) { .desktop-nav { display: flex; } .header-cta { display: inline-flex; } .mobile-menu { display: none; } .brand img { width: 136px; } .footer-showcase { padding-block: 66px; } }
+  @media (prefers-reduced-motion: reduce) { .marquee-row { animation: none; } }
+</style>

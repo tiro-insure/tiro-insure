@@ -1,0 +1,84 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+const product = Astro.url.searchParams.get('product') ?? 'Product 01';
+const selectedCircle = Astro.url.searchParams.get('circle') ?? '';
+---
+<SiteLayout title="Your application" description="Complete your guided TIRO funeral cover application.">
+  <section class="application section">
+    <div class="container app-shell">
+      <div class="app-top"><a class="back-link" href="/cover/discover/">← Change my cover selection</a><p class="eyebrow">Your application</p><h1>One clear step at a time.</h1><p>Complete your details, review them, then TIRO sends the application securely to its policy system.</p></div>
+      <div class="app-layout">
+        <aside class="application-summary"><p class="summary-label">Your selection</p><h2>{product}</h2><p>Final product terms, cover amount and premium will be confirmed by TIRO.</p><hr /><p class="underwriting">Tiro funeral cover is underwritten by KGA Life Insurance.</p></aside>
+        <form id="application-form" novalidate>
+          <div class="stage-progress" aria-label="Application progress"><span id="progress-label">1 of 7</span><div><i id="progress-bar"></i></div></div>
+          <section class="app-stage active" data-stage="1"><p class="eyebrow">Step 1</p><h2 tabindex="-1">Tell us about you.</h2><p class="stage-intro">Use the name that appears on your identity document.</p><div class="fields two"><label>First name<input name="firstName" autocomplete="given-name" required /></label><label>Surname<input name="surname" autocomplete="family-name" required /></label></div><label>Date of birth<input name="dateOfBirth" type="date" autocomplete="bday" required /></label></section>
+          <section class="app-stage" data-stage="2"><p class="eyebrow">Step 2</p><h2 tabindex="-1">How can TIRO reach you?</h2><p class="stage-intro">We’ll use these details for important application updates.</p><div class="fields two"><label>Mobile number<input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="e.g. 082 123 4567" required /></label><label>Email address<input name="email" type="email" autocomplete="email" placeholder="you@example.com" required /></label></div></section>
+          <section class="app-stage" data-stage="3"><p class="eyebrow">Step 3</p><h2 tabindex="-1">Who is in your circle?</h2><p class="stage-intro">You selected <strong>{selectedCircle || 'your circle'}</strong>. You’ll only add eligible people once the selected product rules are available.</p><label>How many people would you like to include?<select name="dependants" required><option value="">Choose one</option><option selected={selectedCircle === 'You'}>Just me</option><option selected={selectedCircle === 'You,Partner'}>Me and one other person</option><option>My immediate family</option><option>My extended family</option></select></label><aside class="info-note"><strong>What happens next?</strong><span>TIRO will check the final product’s dependant rules before issuing cover.</span></aside></section>
+          <section class="app-stage" data-stage="4"><p class="eyebrow">Step 4</p><h2 tabindex="-1">Choose a beneficiary.</h2><p class="stage-intro">This is the person TIRO should contact if a claim needs to be made.</p><div class="fields two"><label>Beneficiary’s full name<input name="beneficiaryName" autocomplete="name" required /></label><label>Relationship to you<select name="beneficiaryRelationship" required><option value="">Choose one</option><option>Partner or spouse</option><option>Parent</option><option>Adult child</option><option>Sibling</option><option>Other</option></select></label></div></section>
+          <section class="app-stage" data-stage="5"><p class="eyebrow">Step 5</p><h2 tabindex="-1">Review your cover selection.</h2><p class="stage-intro">You chose <strong>{product}</strong>. TIRO will confirm pricing, cover amount and terms after product data is connected.</p><div class="selection-card"><span>Selected cover</span><strong>{product}</strong><a href="/cover/discover/">Change my selection</a></div><p class="underwriting">Tiro funeral cover is underwritten by KGA Life Insurance.</p></section>
+          <section class="app-stage" data-stage="6"><p class="eyebrow">Step 6</p><h2 tabindex="-1">How would you like to pay?</h2><p class="stage-intro">Payment options are securely provided by TIRO’s configured payment provider.</p><div class="payment-options"><label class="payment-card"><input type="radio" name="paymentMethod" value="Debit order" required /><span><strong>Debit order</strong><small>Pay from your bank account each month.</small></span></label><label class="payment-card"><input type="radio" name="paymentMethod" value="Card payment" required /><span><strong>Card payment</strong><small>Pay securely with a supported card.</small></span></label></div><aside class="info-note"><strong>Your payment details stay protected.</strong><span>TIRO’s website will not store your card number, CVV or banking credentials.</span></aside></section>
+          <section class="app-stage" data-stage="7"><p class="eyebrow">Step 7</p><h2 tabindex="-1">Review your details.</h2><p class="stage-intro">Check that the information below is correct before you continue.</p><dl class="review-list" id="review-list"></dl><label class="consent"><input type="checkbox" name="consent" required /><span>I confirm that my details are correct and I agree to continue with this application.</span></label><p class="underwriting">Tiro funeral cover is underwritten by KGA Life Insurance.</p></section>
+          <section class="app-stage complete-stage" data-stage="8" aria-live="polite"><p class="eyebrow">Application status</p><h2 id="complete-title" tabindex="-1">Your application is ready.</h2><p id="complete-message">TIRO is preparing your application.</p><dl class="reference-list" id="reference-list" hidden></dl><a class="button button-primary" href="/">Back to TIRO home <span aria-hidden="true">›</span></a></section>
+          <p class="form-error" id="form-error" role="alert" hidden>Please complete the highlighted fields to continue.</p>
+          <div class="stage-actions" id="stage-actions"><button type="button" class="button button-secondary" id="back-button" hidden>Back</button><button type="button" class="button button-primary" id="continue-button">Continue <span aria-hidden="true">›</span></button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</SiteLayout>
+<script define:vars={{ product }}>
+  const form = document.querySelector('#application-form');
+  const back = document.querySelector('#back-button');
+  const continueButton = document.querySelector('#continue-button');
+  const error = document.querySelector('#form-error');
+  const progressLabel = document.querySelector('#progress-label');
+  const progressBar = document.querySelector('#progress-bar');
+  const reviewList = document.querySelector('#review-list');
+  const completeTitle = document.querySelector('#complete-title');
+  const completeMessage = document.querySelector('#complete-message');
+  const referenceList = document.querySelector('#reference-list');
+
+  if (form && back && continueButton && error && progressLabel && progressBar && reviewList && completeTitle && completeMessage && referenceList) {
+    const appForm = form; const backButton = back; const nextButton = continueButton; const errorMessage = error;
+    const progress = progressLabel; const bar = progressBar; const review = reviewList; const title = completeTitle; const message = completeMessage; const references = referenceList;
+    const stages = Array.from(appForm.querySelectorAll('.app-stage'));
+    let current = 1;
+    const inputNames = { 1: ['firstName', 'surname', 'dateOfBirth'], 2: ['phone', 'email'], 3: ['dependants'], 4: ['beneficiaryName', 'beneficiaryRelationship'], 5: [], 6: ['paymentMethod'], 7: ['consent'] };
+    const labels = { firstName: 'First name', surname: 'Surname', dateOfBirth: 'Date of birth', phone: 'Mobile number', email: 'Email', dependants: 'Circle', beneficiaryName: 'Beneficiary', beneficiaryRelationship: 'Relationship', paymentMethod: 'Payment method' };
+    const values = () => Object.fromEntries(new FormData(appForm).entries());
+    const escape = (value) => String(value ?? '—').replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[character] ?? character));
+    function render() {
+      stages.forEach((stage) => stage.classList.toggle('active', Number(stage.dataset.stage) === current));
+      const done = current === 8; progress.textContent = done ? 'Complete' : `${current} of 7`; bar.style.width = `${done ? 100 : (current / 7) * 100}%`;
+      backButton.hidden = current === 1 || done; nextButton.hidden = done; nextButton.innerHTML = current === 7 ? 'Submit application <span aria-hidden="true">›</span>' : 'Continue <span aria-hidden="true">›</span>'; errorMessage.hidden = true;
+      appForm.querySelector(`[data-stage="${current}"] h2`)?.focus();
+    }
+    function validateStage() {
+      const valid = inputNames[current].every((name) => {
+        const control = appForm.elements.namedItem(name);
+        if (!control) return false; if (control instanceof RadioNodeList) return Boolean(control.value); return control.checkValidity();
+      });
+      if (!valid) errorMessage.hidden = false;
+      return valid;
+    }
+    function buildReview() { const data = values(); review.innerHTML = Object.entries(labels).map(([name, label]) => `<div><dt>${label}</dt><dd>${escape(data[name])}</dd></div>`).join('') + `<div><dt>Selected cover</dt><dd>${escape(product)}</dd></div>`; }
+    async function submit() {
+      nextButton.disabled = true; nextButton.textContent = 'Sending securely…'; const data = values();
+      const payload = { product, applicant: { firstName: String(data.firstName), surname: String(data.surname), dateOfBirth: String(data.dateOfBirth), phone: String(data.phone), email: String(data.email) }, dependants: String(data.dependants), beneficiary: { name: String(data.beneficiaryName), relationship: String(data.beneficiaryRelationship) }, paymentMethod: String(data.paymentMethod) };
+      try {
+        const response = await fetch('/api/applications/submit', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) }); const result = await response.json();
+        if (result.status === 'failed') throw new Error(result.messages?.[0] ?? 'We could not submit your application.');
+        current = 8;
+        if (result.status === 'issued') { title.textContent = 'You’re covered.'; message.textContent = 'Your policy has been issued by TIRO.'; references.hidden = false; references.innerHTML = `<div><dt>Policy number</dt><dd>${escape(result.policy_number)}</dd></div><div><dt>Application reference</dt><dd>${escape(result.application_reference)}</dd></div>`; }
+        else if (result.status === 'submitted') { title.textContent = 'Your application has been sent.'; message.textContent = result.messages?.[0] ?? 'TIRO will confirm the next step shortly.'; }
+        else { title.textContent = 'Your application preview is complete.'; message.textContent = 'The secure TIRO policy handoff is ready to connect when the client API is available.'; }
+        render();
+      } catch (reason) { errorMessage.textContent = reason instanceof Error ? reason.message : 'We could not submit your application.'; errorMessage.hidden = false; nextButton.disabled = false; nextButton.innerHTML = 'Submit application <span aria-hidden="true">›</span>'; }
+    }
+    nextButton.addEventListener('click', () => { if (!validateStage()) return; if (current === 6) buildReview(); if (current === 7) { void submit(); return; } current += 1; render(); });
+    backButton.addEventListener('click', () => { current -= 1; render(); });
+  }
+</script>
+<style>
+  .application { min-height: 75vh; background: var(--tiro-soft-white); }.app-shell { max-width: 1100px; }.app-top { max-width: 720px; }.back-link { display: inline-block; margin-bottom: 40px; color: var(--tiro-blue); font-weight: 800; text-underline-offset: 5px; }.app-top h1 { margin: 12px 0 16px; color: var(--tiro-navy); font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.06; letter-spacing: -.045em; }.app-top > p:not(.eyebrow) { font-size: 1.1rem; }.app-layout { display: grid; gap: 24px; margin-top: 42px; align-items: start; }.application-summary, #application-form { border: 1px solid var(--tiro-light-grey); border-radius: 24px; background: white; }.application-summary { padding: 28px; }.summary-label { margin: 0 0 8px; color: var(--tiro-red); font-size: .8rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; }.application-summary h2 { margin: 0; color: var(--tiro-navy); font-size: 1.4rem; }.application-summary p:not(.summary-label) { color: var(--tiro-grey); font-size: .93rem; }.application-summary hr { border: 0; border-top: 1px solid var(--tiro-light-grey); margin: 24px 0; }.underwriting { color: var(--tiro-grey); font-size: .82rem; }.stage-progress { display: grid; gap: 10px; padding: 24px 28px 0; color: var(--tiro-blue); font-size: .86rem; font-weight: 800; }.stage-progress > div { height: 6px; overflow: hidden; border-radius: 999px; background: var(--tiro-light-grey); }.stage-progress i { display: block; width: 14.3%; height: 100%; border-radius: inherit; background: var(--tiro-red); transition: width 220ms ease; }.app-stage { display: none; padding: 28px; }.app-stage.active { display: block; }.app-stage h2 { margin: 8px 0 10px; color: var(--tiro-navy); font-size: clamp(1.7rem, 3vw, 2.35rem); line-height: 1.13; letter-spacing: -.03em; }.stage-intro { margin: 0 0 26px; color: var(--tiro-grey); }.fields { display: grid; gap: 16px; }.app-stage label { display: grid; gap: 8px; margin-top: 16px; color: var(--tiro-navy); font-size: .9rem; font-weight: 800; }.app-stage input, .app-stage select { width: 100%; min-height: 52px; padding: 12px 14px; border: 1px solid #b7c2d1; border-radius: 12px; color: var(--tiro-charcoal); background: white; }.app-stage input:focus, .app-stage select:focus { border-color: var(--tiro-blue); outline: 3px solid #032e7620; }.info-note { display: grid; gap: 4px; margin-top: 24px; padding: 16px; border-radius: 14px; background: #edf3fb; color: var(--tiro-navy); font-size: .9rem; }.payment-options { display: grid; gap: 12px; }.app-stage .payment-card { min-height: 86px; display: flex; align-items: center; gap: 14px; padding: 16px; border: 2px solid var(--tiro-light-grey); border-radius: 16px; cursor: pointer; }.payment-card:has(input:checked) { border-color: var(--tiro-blue); background: #f8fbff; }.payment-card input { width: 20px; min-height: auto; }.payment-card span { display: grid; gap: 3px; }.payment-card small { color: var(--tiro-grey); font-size: .85rem; font-weight: 500; }.selection-card { display: grid; gap: 6px; padding: 20px; border-radius: 16px; background: var(--tiro-soft-white); color: var(--tiro-navy); }.selection-card span { font-size: .85rem; font-weight: 800; }.selection-card strong { font-size: 1.2rem; }.selection-card a { margin-top: 4px; color: var(--tiro-blue); font-size: .9rem; font-weight: 800; }.review-list, .reference-list { display: grid; gap: 0; margin: 24px 0; border-top: 1px solid var(--tiro-light-grey); }.review-list div, .reference-list div { display: grid; grid-template-columns: .9fr 1.1fr; gap: 16px; padding: 13px 0; border-bottom: 1px solid var(--tiro-light-grey); }.review-list dt, .reference-list dt { color: var(--tiro-grey); }.review-list dd, .reference-list dd { margin: 0; color: var(--tiro-navy); font-weight: 800; word-break: break-word; }.consent { grid-template-columns: 22px 1fr; align-items: start; }.consent input { width: 20px; min-height: 20px; margin-top: 2px; accent-color: var(--tiro-red); }.complete-stage { text-align: left; }.complete-stage .button { margin-top: 8px; }.form-error { margin: 0; padding: 0 28px; color: #a31220; font-weight: 800; }.stage-actions { display: flex; gap: 12px; padding: 28px; }.stage-actions .button[hidden] { display: none; } @media (min-width: 720px) { .fields.two { grid-template-columns: repeat(2, 1fr); } } @media (min-width: 950px) { .app-layout { grid-template-columns: 280px 1fr; }.application-summary { position: sticky; top: 24px; } }
+</style>

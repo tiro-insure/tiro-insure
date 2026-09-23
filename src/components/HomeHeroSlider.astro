@@ -1,0 +1,89 @@
+---
+import OfferHero from './OfferHero.astro';
+---
+
+<section class="home-slider" data-home-slider data-active-slide="0" aria-roledescription="carousel" aria-label="TIRO services">
+  <div class="slider-panels">
+    <div class="slider-panel active" data-slide aria-hidden="false">
+      <OfferHero />
+    </div>
+    <div class="slider-panel" data-slide aria-hidden="true">
+      <OfferHero
+        id="tombstone-offer-heading"
+        eyebrow="TIRO tombstones"
+        headingLead="Quality tombstones"
+        headingMiddle="starting"
+        headingHighlight="from R174 a month."
+        lead="Choose a memorial with care. Browse, select and personalise the details and arrange installation with support from our team."
+        highlightPrimary={{ label: 'Selected range', value: '15% OFF', sub: 'selected tombstones' }}
+        highlightSecondary={{ label: 'Lay-by up to', value: '24', sub: 'months to pay' }}
+        primaryCta={{ label: 'Browse tombstones', href: '/tombstones/' }}
+        secondaryCta={{ label: 'Create a custom memorial', href: '/tombstones/custom/' }}
+        note="Selected products, delivery, installation and lay-by terms are confirmed with TIRO before an order is finalised."
+        badgeRect={{ label: 'Selected range', value: '15% OFF', sub: 'selected tombstones' }}
+        badgeCircle={{ label: 'Lay-by', value: '24', sub: 'months to pay' }}
+        accent="#1a5fd9"
+        showOutline={true}
+        showPoster={false}
+      />
+    </div>
+  </div>
+  <div class="slider-controls">
+    <button type="button" class="slider-arrow" data-previous aria-label="Show previous homepage slide">‹</button>
+    <div class="slider-dots" role="tablist" aria-label="Homepage slides">
+      <button type="button" class="slider-dot active" data-dot="0" role="tab" aria-selected="true" aria-label="Show funeral cover slide"></button>
+      <button type="button" class="slider-dot" data-dot="1" role="tab" aria-selected="false" aria-label="Show tombstones slide"></button>
+    </div>
+    <button type="button" class="slider-arrow" data-next aria-label="Show next homepage slide">›</button>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-home-slider]').forEach((slider) => {
+    const slides = Array.from(slider.querySelectorAll<HTMLElement>('[data-slide]'));
+    const dots = Array.from(slider.querySelectorAll<HTMLButtonElement>('[data-dot]'));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let active = 0;
+    let timer: number | undefined;
+    const show = (index: number) => {
+      active = (index + slides.length) % slides.length;
+      slider.dataset.activeSlide = String(active);
+      slides.forEach((slide, current) => {
+        const selected = current === active;
+        slide.classList.toggle('active', selected);
+        slide.setAttribute('aria-hidden', String(!selected));
+      });
+      dots.forEach((dot, current) => {
+        const selected = current === active;
+        dot.classList.toggle('active', selected);
+        dot.setAttribute('aria-selected', String(selected));
+      });
+    };
+    const stop = () => { if (timer !== undefined) window.clearInterval(timer); timer = undefined; };
+    const start = () => { stop(); if (!reducedMotion.matches) timer = window.setInterval(() => show(active + 1), 5000); };
+    slider.querySelector<HTMLButtonElement>('[data-previous]')?.addEventListener('click', () => { show(active - 1); start(); });
+    slider.querySelector<HTMLButtonElement>('[data-next]')?.addEventListener('click', () => { show(active + 1); start(); });
+    dots.forEach((dot, index) => dot.addEventListener('click', () => { show(index); start(); }));
+    slider.addEventListener('focusin', stop);
+    slider.addEventListener('focusout', start);
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+    reducedMotion.addEventListener('change', start);
+    start();
+  });
+</script>
+
+<style>
+  .home-slider { position: relative; overflow: hidden; background: #071a3d; }
+  .slider-panels { display: grid; }
+  .slider-panel { grid-area: 1 / 1; min-width: 0; opacity: 0; pointer-events: none; visibility: hidden; transform: translateX(3%); transition: opacity 620ms ease, transform 620ms ease, visibility 0s linear 620ms; }
+  .slider-panel.active { z-index: 1; opacity: 1; pointer-events: auto; visibility: visible; transform: translateX(0); transition-delay: 0s; }
+  .slider-controls { position: absolute; z-index: 3; right: calc(clamp(20px, 5vw, 80px) + 200px); bottom: calc(clamp(130px, 10vw, 175px) - 35px); display: flex; align-items: center; gap: 13px; transform: translateY(-140px); }
+  .slider-arrow { display: grid; width: 40px; height: 40px; place-items: center; padding: 0; border: 1px solid #ffffff8f; border-radius: 50%; background: #ffffff12; color: white; font-size: 1.7rem; line-height: 1; cursor: pointer; backdrop-filter: blur(8px); }
+  .slider-arrow:hover { background: #ffffff2a; }
+  .slider-arrow:focus-visible, .slider-dot:focus-visible { outline: 3px solid #ed1b2f; outline-offset: 3px; }
+  .slider-dots { display: flex; align-items: center; gap: 8px; }
+  .slider-dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: #ffffff70; cursor: pointer; transition: width 220ms ease, background 220ms ease; }
+  .slider-dot.active { width: 26px; border-radius: 999px; background: #ed1b2f; }
+  @media (max-width: 760px) { .slider-controls { bottom: 24px; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .slider-panel, .slider-dot { transition: none; } }
+</style>

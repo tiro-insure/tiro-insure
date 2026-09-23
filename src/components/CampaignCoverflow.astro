@@ -1,0 +1,114 @@
+---
+interface CampaignSlide {
+  key: string;
+  label: string;
+}
+
+interface Props {
+  slides: CampaignSlide[];
+  label?: string;
+}
+
+const { slides, label = 'TIRO campaign highlights' } = Astro.props;
+---
+
+<section class="coverflow" data-coverflow aria-roledescription="carousel" aria-label={label}>
+  <div class="coverflow-stage" data-coverflow-stage tabindex="0" aria-describedby="coverflow-help">
+    <p class="sr-only" id="coverflow-help">Use the left and right arrow keys, or drag, to browse campaign highlights.</p>
+    {slides.map((slide, index) => (
+      <button class={`coverflow-card coverflow-card-${slide.key}`} type="button" data-coverflow-card data-index={index} aria-label={`Show campaign highlight ${index + 1}: ${slide.label}`} aria-current={index === 0 ? 'true' : 'false'}>
+        <span class="sr-only">{slide.label}</span>
+      </button>
+    ))}
+  </div>
+  <div class="coverflow-controls">
+    <button type="button" class="coverflow-arrow" data-coverflow-previous aria-label="Show previous campaign highlight">‹</button>
+    <div class="coverflow-progress" aria-hidden="true">{slides.map((slide, index) => <span class:list={['coverflow-dot', { active: index === 0 }]} data-coverflow-dot data-index={index}></span>)}</div>
+    <button type="button" class="coverflow-arrow" data-coverflow-next aria-label="Show next campaign highlight">›</button>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-coverflow]').forEach((coverflow) => {
+    const cards = Array.from(coverflow.querySelectorAll<HTMLElement>('[data-coverflow-card]'));
+    const dots = Array.from(coverflow.querySelectorAll<HTMLElement>('[data-coverflow-dot]'));
+    const stage = coverflow.querySelector<HTMLElement>('[data-coverflow-stage]');
+    const previous = coverflow.querySelector<HTMLButtonElement>('[data-coverflow-previous]');
+    const next = coverflow.querySelector<HTMLButtonElement>('[data-coverflow-next]');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let selected = 0;
+    let timer: number | undefined;
+    let startX = 0;
+    const relativeOffset = (index: number) => {
+      let offset = index - selected;
+      const half = cards.length / 2;
+      if (offset > half) offset -= cards.length;
+      if (offset < -half) offset += cards.length;
+      return offset;
+    };
+    const render = () => {
+      const cardWidth = cards[0]?.getBoundingClientRect().width ?? 140;
+      const pitch = cardWidth * 1.3;
+      cards.forEach((card, index) => {
+        const offset = relativeOffset(index);
+        const distance = Math.abs(offset);
+        const visible = distance <= 1;
+        card.style.transform = `translate(-50%, -50%) translateX(${offset * pitch}px) translateZ(${-distance * 48}px) rotateY(${-offset * 18}deg) scale(${1 - distance * 0.025})`;
+        card.style.opacity = visible ? String(1 - distance * 0.14) : '0';
+        card.style.zIndex = String(30 - distance);
+        card.style.pointerEvents = visible ? 'auto' : 'none';
+        card.setAttribute('aria-current', String(index === selected));
+      });
+      dots.forEach((dot, index) => dot.classList.toggle('active', index === selected));
+    };
+    const show = (index: number) => { selected = (index + cards.length) % cards.length; render(); };
+    const stop = () => { if (timer !== undefined) window.clearInterval(timer); timer = undefined; };
+    const start = () => { stop(); if (!reducedMotion.matches) timer = window.setInterval(() => show(selected + 1), 6500); };
+    cards.forEach((card, index) => card.addEventListener('click', () => { show(index); start(); }));
+    previous?.addEventListener('click', () => { show(selected - 1); start(); });
+    next?.addEventListener('click', () => { show(selected + 1); start(); });
+    stage?.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') { event.preventDefault(); show(selected - 1); start(); }
+      if (event.key === 'ArrowRight') { event.preventDefault(); show(selected + 1); start(); }
+    });
+    stage?.addEventListener('pointerdown', (event) => { startX = event.clientX; });
+    stage?.addEventListener('pointerup', (event) => {
+      const distance = event.clientX - startX;
+      if (Math.abs(distance) > 28) { show(selected + (distance < 0 ? 1 : -1)); start(); }
+    });
+    coverflow.addEventListener('mouseenter', stop);
+    coverflow.addEventListener('mouseleave', start);
+    coverflow.addEventListener('focusin', stop);
+    coverflow.addEventListener('focusout', start);
+    window.addEventListener('resize', render);
+    reducedMotion.addEventListener('change', start);
+    render();
+    start();
+  });
+</script>
+
+<style>
+  .coverflow { --coverflow-card-width: clamp(166px, 16.9vw, 234px); --coverflow-card-height: calc(var(--coverflow-card-width) * 2.27); width: min(100%, 760px); justify-self: center; }
+  .coverflow-stage { position: relative; height: calc(var(--coverflow-card-height) + 34px); outline: none; perspective: 680px; transform-style: preserve-3d; touch-action: pan-y; cursor: grab; user-select: none; }
+  .coverflow-stage:active { cursor: grabbing; }
+  .coverflow-stage:focus-visible { outline: 3px solid #ed1b2f; outline-offset: 8px; border-radius: 20px; }
+  .coverflow-card { position: absolute; top: 50%; left: 50%; width: var(--coverflow-card-width); height: var(--coverflow-card-height); margin: 0; padding: 0; border: 4px solid white; border-radius: 16px; background-color: white; background-image: url('/brand/campaigns/a_clean_grid_style_advertisement_poster_layout_s.png'); background-repeat: no-repeat; background-size: 318% 200%; box-shadow: 0 16px 34px #071a3d28; cursor: pointer; transform-style: preserve-3d; transition: transform 560ms cubic-bezier(.2, .8, .2, 1), opacity 420ms ease, box-shadow 280ms ease; }
+  .coverflow-card:hover { box-shadow: 0 22px 40px #071a3d3a; }
+  .coverflow-card:focus-visible { outline: 3px solid #ed1b2f; outline-offset: 4px; }
+  .coverflow-card-claims { background-position: 0% 0%; }
+  .coverflow-card-quick { background-position: 50% 0%; }
+  .coverflow-card-price { background-position: 100% 0%; }
+  .coverflow-card-campaign-circle { background-position: 0% 100%; }
+  .coverflow-card-support { background-position: 50% 100%; }
+  .coverflow-card-heritage { background-position: 100% 100%; }
+  .coverflow-controls { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; gap: 14px; margin-top: 2px; }
+  .coverflow-arrow { display: grid; width: 40px; height: 40px; place-items: center; padding: 0; border: 1px solid #dce3ed; border-radius: 50%; background: white; color: #003b80; font-size: 1.7rem; line-height: 1; cursor: pointer; transition: border-color 180ms, background 180ms, transform 180ms; }
+  .coverflow-arrow:hover { border-color: #003b80; background: #f4f7fb; transform: translateY(-1px); }
+  .coverflow-arrow:focus-visible { outline: 3px solid #ed1b2f; outline-offset: 3px; }
+  .coverflow-progress { display: flex; align-items: center; justify-content: center; gap: 7px; }
+  .coverflow-dot { width: 7px; height: 7px; border-radius: 50%; background: #b6c1d0; transition: width 260ms ease, background 260ms ease; }
+  .coverflow-dot.active { width: 22px; border-radius: 99px; background: #ed1b2f; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  @media (max-width: 719px) { .coverflow { --coverflow-card-width: 122px; } .coverflow-stage { height: calc(var(--coverflow-card-height) + 22px); } }
+  @media (prefers-reduced-motion: reduce) { .coverflow-card { transition: none; } }
+</style>

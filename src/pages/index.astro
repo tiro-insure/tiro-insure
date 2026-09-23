@@ -1,0 +1,205 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import HomeHeroSlider from '../components/HomeHeroSlider.astro';
+const proof = [
+  { value: 'Claims paid in 24 hours.', detail: 'Money when your family needs it most.' },
+  { value: 'Covered in under 2 minutes.', detail: 'Simple insurance. No unnecessary fuss.' },
+  { value: 'From R60 a month.', detail: 'Protection that fits your pocket.' },
+  { value: 'Cover your whole circle.', detail: 'You. Family. Extended family.' },
+  { value: 'Digital convenience. Human support.', detail: 'Online or face-to-face. You choose.' },
+  { value: '15 years of showing up.', detail: 'Thousands of South African families served.' },
+];
+const campaignSlides = [
+  { key: 'claims', label: 'TIRO campaign creative: claims paid in 24 hours.' },
+  { key: 'quick', label: 'TIRO campaign creative: covered in under 2 minutes.' },
+  { key: 'price', label: 'TIRO campaign creative: from R60 a month.' },
+  { key: 'campaign-circle', label: 'TIRO campaign creative: cover your whole circle.' },
+  { key: 'support', label: 'TIRO campaign creative: digital convenience and human support.' },
+  { key: 'heritage', label: 'TIRO campaign creative: 15 years of showing up.' },
+];
+---
+<SiteLayout title="People today. Brighter tomorrows" description="Explore TIRO funeral cover, tombstones, claims support and branch services in South Africa.">
+  <HomeHeroSlider />
+  <section class="hero section">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">People today. Brighter tomorrows.</p>
+        <h1>Real protection for the people <span>you love.</span></h1>
+        <p class="hero-lead">Affordable funeral cover. Quick and simple. Human support when you need it.</p>
+        <div class="hero-actions"><a class="button button-primary" href="/cover/">Explore cover <span aria-hidden="true">›</span></a><a class="text-link" href="/branches/">Find a branch <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <section class="hero-carousel" aria-roledescription="carousel" aria-label="TIRO funeral cover campaign highlights"><div class="carousel-viewport">{campaignSlides.map((slide, index) => <div class:list={['campaign-slide', slide.key, { active: index === 0 }]} data-slide aria-hidden={index === 0 ? 'false' : 'true'} role="img" aria-label={slide.label}></div>)}</div><div class="carousel-controls"><button type="button" class="carousel-arrow" data-previous aria-label="Show previous campaign highlight">‹</button><div class="carousel-dots" role="tablist" aria-label="Campaign highlights">{campaignSlides.map((slide, index) => <button type="button" class:list={['carousel-dot', { active: index === 0 }]} data-dot={index} role="tab" aria-selected={index === 0 ? 'true' : 'false'} aria-label={`Show campaign highlight ${index + 1}: ${slide.label}`}></button>)}</div><button type="button" class="carousel-arrow" data-next aria-label="Show next campaign highlight">›</button></div></section>
+    </div>
+  </section>
+  <section class="proof" aria-label="Why families choose TIRO"><div class="proof-marquee"><div class="proof-track">{[...proof, ...proof].map((item) => <article class="proof-card"><strong>{item.value}</strong><span>{item.detail}</span></article>)}</div></div></section>
+  <section class="section" id="cover"><div class="container split"><div><p class="eyebrow">Cover your whole circle</p><h2 class="heading">Protection that includes the people closest to you.</h2><p>Explore funeral cover for yourself, your family and extended family. Find an option that fits your needs when product details are available.</p><a class="button button-secondary" href="/cover/">See cover options <span aria-hidden="true">›</span></a></div><div class="circle-card card" aria-label="Cover your whole circle: you, partner, children, parents, siblings, grandparents and in-laws."><span class="ripple ripple-one" aria-hidden="true"></span><span class="ripple ripple-two" aria-hidden="true"></span><span class="ripple ripple-three" aria-hidden="true"></span><span class="ripple ripple-four" aria-hidden="true"></span><span class="circle-label circle-you">You</span><span class="circle-label circle-family">Family</span><span class="circle-label circle-extended"><span class="extended-word">Extended</span><br />family</span><span class="circle-member member-partner">Partner</span><span class="circle-member member-children">Children</span><span class="circle-member member-parents">Parents</span><span class="circle-member member-siblings">Siblings</span><span class="circle-member member-grandparents">Grandparents</span><span class="circle-member member-inlaws">In-laws</span></div></div></section>
+  <section class="section shaded"><div class="container section-header"><p class="eyebrow">Tombstones</p><h2 class="heading">A lasting tribute to someone you love.</h2></div><div class="container split"><div class="tombstone-copy"><p class="eyebrow">Tombstones</p><h2 class="heading">A lasting tribute to someone you love.</h2><p>Browse the TIRO tombstone range and learn about<br />personalisation, installation and lay-bye options.</p><a class="button button-secondary" href="/tombstones/">Explore tombstones <span aria-hidden="true">›</span></a></div><section class="tombstone-selector" aria-label="Explore tombstone styles"><button class="tombstone-choice active" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/06.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20h14M7 20V9a5 5 0 0 1 10 0v11M12 8v7m-3.5-3.5h7" /></svg></span><span class="choice-label"><strong>Double memorial</strong><small>Classic granite</small></span></button><button class="tombstone-choice" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/05.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 7 7-7 11L5 10l7-7Zm-4 7h8" /></svg></span><span class="choice-label"><strong>Grand memorial</strong><small>Distinctive design</small></span></button><button class="tombstone-choice" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/04.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M7 8h10M5 21h14" /></svg></span><span class="choice-label"><strong>Floral tribute</strong><small>Honouring a life</small></span></button><button class="tombstone-choice" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/03.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V5h12v15M9 9h6M9 13h6" /></svg></span><span class="choice-label"><strong>Classic memorial</strong><small>Lasting tribute</small></span></button><button class="tombstone-choice" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/02.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.2 5.1 5.5.5-4.2 3.6 1.3 5.3-4.8-2.8-4.8 2.8 1.3-5.3-4.2-3.6 5.5-.5L12 3Z" /></svg></span><span class="choice-label"><strong>Portrait memorial</strong><small>Personal tribute</small></span></button></section></div></section>
+  <section class="section shaded"><div class="container"><p class="eyebrow">Simple from the start</p><h2 class="heading">How it works</h2><div class="steps"><div class="card"><span>01</span><h3>Choose</h3><p>Find the cover that works for your circle.</p></div><div class="card"><span>02</span><h3>Apply</h3><p>Share your details in a guided application.</p></div><div class="card"><span>03</span><h3>Get covered</h3><p>Receive your policy once your application and payment are confirmed.</p></div></div></div></section>
+  <section class="section why-tiro"><div class="container"><div class="section-header"><p class="eyebrow">Why TIRO</p><h2 class="heading">Built around what matters.</h2></div><div class="why-bento"><article class="why-intro"><p class="eyebrow">Why TIRO</p><h2>Simple to use.<br />Here to help.</h2><p>Practical funeral cover for the people who matter most, with support at every step.</p><span class="why-intro-mark" aria-hidden="true">+</span></article><article class="why-card why-circle"><span class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="3" /></svg></span><h3>Cover your whole circle</h3><p>You. Family. Extended family.</p></article><article class="why-card why-digital"><span class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4h12v16H6zM9 8h6M9 12h6M11 16h2" /></svg></span><h3>Digital convenience</h3><p>Explore your options when it suits you.</p></article><a class="why-support" href="/branches/"><span><strong>Human support</strong><small>Talk to TIRO when you want a person to help.</small></span><b aria-hidden="true">→</b></a></div></div></section>
+  <section class="section"><div class="container"><div class="section-header"><p class="eyebrow">Learn and branches</p><h2 class="heading">Answers and support, close to home.</h2></div><div class="next-grid"><article class="mini-hero mini-hero--learn"><div class="mini-hero-copy"><p class="eyebrow">Learn</p><h2>Good questions deserve clear answers.</h2><p>Explore plain-language information about cover, claims, tombstones and family finances.</p><a class="button button-secondary" href="/learn/">Visit Learn <span aria-hidden="true">›</span></a></div><div class="mini-hero-visual" aria-hidden="true"><span>Learn</span></div></article><article class="mini-hero mini-hero--branches"><div class="mini-hero-copy"><p class="eyebrow">Branches</p><h2>Support close to home.</h2><p>TIRO combines online convenience with face-to-face support.</p><a class="button button-secondary" href="/branches/">Find a branch <span aria-hidden="true">›</span></a></div><div class="mini-hero-visual" aria-hidden="true"><span>TIRO</span></div></article></div></div></section>
+</SiteLayout>
+<script>
+  const carousel = document.querySelector<HTMLElement>('.hero-carousel');
+  if (carousel) {
+    const slides = Array.from(carousel.querySelectorAll<HTMLElement>('[data-slide]'));
+    const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-dot]'));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let active = 0;
+    let timer: number | undefined;
+    const show = (index: number) => {
+      active = (index + slides.length) % slides.length;
+      slides.forEach((slide, current) => { const isActive = current === active; slide.classList.toggle('active', isActive); slide.setAttribute('aria-hidden', String(!isActive)); });
+      dots.forEach((dot, current) => { const isActive = current === active; dot.classList.toggle('active', isActive); dot.setAttribute('aria-selected', String(isActive)); });
+    };
+    const stop = () => { if (timer !== undefined) window.clearInterval(timer); timer = undefined; };
+    const start = () => { stop(); if (!reducedMotion.matches) timer = window.setInterval(() => show(active + 1), 7000); };
+    carousel.querySelector<HTMLButtonElement>('[data-previous]')?.addEventListener('click', () => { show(active - 1); start(); });
+    carousel.querySelector<HTMLButtonElement>('[data-next]')?.addEventListener('click', () => { show(active + 1); start(); });
+    dots.forEach((dot, index) => dot.addEventListener('click', () => { show(index); start(); }));
+    carousel.addEventListener('mouseenter', stop); carousel.addEventListener('mouseleave', start); carousel.addEventListener('focusin', stop); carousel.addEventListener('focusout', start);
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+    reducedMotion.addEventListener('change', start); start();
+  }
+
+  document.querySelectorAll<HTMLElement>('.tombstone-selector').forEach((selector) => {
+    const choices = Array.from(selector.querySelectorAll<HTMLButtonElement>('[data-tombstone-choice]'));
+    choices.forEach((choice) => choice.addEventListener('click', () => {
+      choices.forEach((item) => item.classList.toggle('active', item === choice));
+    }));
+  });
+
+  const miniHeroes = document.querySelectorAll<HTMLElement>('.mini-hero');
+  if ('IntersectionObserver' in window) {
+    const miniHeroObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.2 });
+    miniHeroes.forEach((hero) => miniHeroObserver.observe(hero));
+  } else {
+    miniHeroes.forEach((hero) => hero.classList.add('is-revealed'));
+  }
+</script>
+<style>
+  .hero { display: none; }
+  .hero-grid, .split { display: grid; align-items: center; gap: 48px; }
+  .hero h1 { max-width: 820px; margin: 16px 0 24px; color: var(--tiro-navy); font-size: clamp(2.7rem, 6vw, 4.5rem); line-height: 1.05; letter-spacing: -.05em; }
+  .hero h1 span { color: var(--tiro-red); }
+  .hero-lead { max-width: 550px; font-size: clamp(1.1rem, 1.8vw, 1.3rem); }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; margin-top: 28px; }
+  .hero-carousel { display: none; }
+  .text-link { min-height: 48px; display: inline-flex; align-items: center; gap: 8px; color: var(--tiro-blue); font-weight: 800; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+  .hero-carousel { width: 100%; min-width: 220px; max-width: 310px; justify-self: center; }.carousel-viewport { position: relative; width: 100%; aspect-ratio: .43; overflow: hidden; border: 5px solid white; border-radius: 22px; background: #e7eef9; box-shadow: 0 24px 56px #071a3d1f; }.campaign-slide { position: absolute; inset: 0; opacity: 0; transform: translateX(4%); border-radius: 16px; background-image: url('/brand/campaigns/a_clean_grid_style_advertisement_poster_layout_s.png'); background-repeat: no-repeat; background-size: 318% 200%; transition: opacity 700ms ease, transform 700ms ease; }.campaign-slide.active { z-index: 1; opacity: 1; transform: translateX(0); }.campaign-slide.claims { background-position: 0% 0%; }.campaign-slide.quick { background-position: 50% 0%; }.campaign-slide.price { background-position: 100% 0%; }.campaign-slide.campaign-circle { background-position: 0% 100%; }.campaign-slide.support { background-position: 50% 100%; }.campaign-slide.heritage { background-position: 100% 100%; }.carousel-controls { display: grid; grid-template-columns: 40px minmax(0, 1fr) 40px; gap: 8px; align-items: center; width: 100%; margin-top: 14px; }.carousel-arrow { width: 40px; height: 40px; border: 1px solid var(--tiro-light-grey); border-radius: 50%; background: white; color: var(--tiro-blue); font-size: 1.5rem; line-height: 1; cursor: pointer; }.carousel-arrow:hover { border-color: var(--tiro-blue); }.carousel-dots { display: flex; justify-content: center; gap: 8px; }.carousel-dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: #b6c1d0; cursor: pointer; }.carousel-dot.active { width: 24px; border-radius: 99px; background: var(--tiro-red); }
+  .proof { position: relative; z-index: 2; margin-top: -17px; padding-block: 20px; overflow: hidden; background: var(--tiro-blue); color: white; }
+  .proof-marquee { overflow: hidden; mask-image: linear-gradient(to right, transparent, black 9%, black 91%, transparent); }
+  .proof-track { display: flex; width: max-content; gap: 16px; padding-inline: 16px; animation: proof-marquee 34s linear infinite; }
+  .proof-marquee:hover .proof-track { animation-play-state: paused; }
+  .proof-card { display: grid; width: min(360px, calc(100vw - 56px)); min-height: 148px; flex: 0 0 auto; align-content: space-between; gap: 18px; padding: 24px; border: 1px solid #ffffff3d; border-radius: 18px; background: linear-gradient(145deg, #10264e, #07152e); box-shadow: 0 14px 28px #04112745; }
+  .proof strong { font-size: clamp(1.25rem, 1.8vw, 1.7rem); line-height: 1.12; }
+  .proof span { color: #dbe8ff; font-size: .94rem; }
+  @keyframes proof-marquee { to { transform: translateX(calc(-50% - 8px)); } }
+  .split > div:first-child { max-width: 600px; }
+  .split p:not(.eyebrow) { max-width: 560px; margin: 20px 0 28px; font-size: 1.1rem; }
+  .shaded { background: var(--tiro-soft-white); }
+  .section-header { max-width: none; margin-bottom: 36px; }
+  .section-header .heading { max-width: 760px; margin: 0; }
+  .tombstone-copy > .eyebrow, .tombstone-copy > .heading { display: none; }
+  .circle-card, .memorial-art { min-height: 320px; position: relative; overflow: hidden; background: var(--tiro-soft-white); }
+  .circle-card { min-height: 390px; display: grid; place-items: center; isolation: isolate; overflow: visible; border: 0; background: transparent; }
+  .ripple { position: absolute; top: 50%; left: 50%; border: 2px solid white; border-radius: 50%; box-shadow: 0 14px 28px #071a3d24, inset 0 1px #ffffff66; animation: ripple-breathe 5s ease-in-out infinite; }
+  .ripple-one { z-index: 4; width: 108px; height: 108px; border: 0; background: radial-gradient(circle at 35% 25%, #f33a4b, #b9081c); box-shadow: 0 14px 28px #071a3d30; }
+  .ripple-two { z-index: 3; width: 178px; height: 178px; border-color: #1763d8; background: transparent; animation-delay: -.8s; }
+  .ripple-three { z-index: 2; width: 250px; height: 250px; border-color: #ed1b2f; background: transparent; animation-delay: -1.6s; }
+  .ripple-four { z-index: 1; width: 324px; height: 324px; border-color: #0c3f91; background: transparent; animation-delay: -2.4s; }
+  .circle-label { position: absolute; z-index: 5; color: var(--tiro-navy); font-size: .86rem; font-weight: 800; line-height: 1.05; text-align: center; }
+  .circle-you { top: 50%; left: 50%; color: white; transform: translate(-50%, -50%); }
+  .circle-family { top: 78%; left: 50%; color: #ed1b2f; transform: translate(-50%, -191px); }
+  .circle-extended { top: 7%; left: 50%; color: #0c3f91; transform: translate(-50%, 0); }
+  .extended-word { position: relative; top: -14px; }
+  .circle-member { position: absolute; z-index: 5; padding: 2px 5px; border-radius: 99px; background: #ffffffde; font-size: .64rem; font-weight: 800; line-height: 1.1; white-space: nowrap; box-shadow: 0 2px 8px #071a3d12; }
+  .member-partner, .member-children { top: 50%; color: #1763d8; transform: translateY(-50%); }
+  .member-partner { left: 22%; }
+  .member-children { right: 22%; }
+  .member-parents, .member-siblings { color: #ed1b2f; transform: translateY(-50%); }
+  .member-parents { top: 32%; left: 10%; }
+  .member-siblings { top: 68%; right: 10%; }
+  .member-grandparents, .member-inlaws { color: #0c3f91; transform: translateY(-50%); }
+  .member-grandparents { top: 20%; left: 1%; }
+  .member-inlaws { top: 80%; right: 2%; }
+  @keyframes ripple-breathe { 0%, 100% { transform: translate(-50%, -50%) scale(.98); opacity: .88; } 50% { transform: translate(-50%, -50%) scale(1.03); opacity: 1; } }
+  .memorial-art { background: #e9edf3; }
+  .memorial-shape { position: absolute; width: 48%; height: 70%; left: 26%; bottom: 14%; border: 13px solid #8795a6; border-bottom: 0; border-radius: 100px 100px 0 0; background: #b5c0cc; }
+  .memorial-line { position: absolute; width: 70%; height: 18px; left: 15%; bottom: 11%; border-radius: 6px; background: #697b8e; }
+  .tombstone-selector { display: flex; min-height: 390px; overflow: hidden; border-radius: 24px; background: var(--tiro-navy); box-shadow: 0 20px 44px #071a3d22; }
+  .tombstone-choice { position: relative; display: flex; flex: 1 1 0; min-width: 50px; align-items: flex-end; overflow: hidden; padding: 22px 14px; border: 0; border-right: 2px solid #ffffff94; background: var(--tombstone-image) center / cover no-repeat; color: white; cursor: pointer; transition: flex 650ms cubic-bezier(.2,.72,.2,1), filter 450ms ease; }
+  .tombstone-choice:last-child { border-right: 0; }
+  .tombstone-choice:not(.active) { filter: saturate(.68) brightness(.72); }
+  .tombstone-choice.active { flex: 6 1 0; }
+  .choice-scrim { position: absolute; inset: 0; background: linear-gradient(to top, #061632e8 0%, #06163210 62%); }
+  .choice-icon { position: absolute; z-index: 1; bottom: 22px; left: 50%; display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid #ffffff8c; border-radius: 50%; background: #071a3dcc; backdrop-filter: blur(8px); transform: translateX(-50%); transition: left 550ms cubic-bezier(.2,.72,.2,1), transform 550ms cubic-bezier(.2,.72,.2,1), background 250ms ease; }
+  .choice-icon svg { width: 21px; height: 21px; fill: none; stroke: white; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+  .tombstone-choice.active .choice-icon { left: 18px; background: var(--tiro-red); transform: translateX(0); }
+  .choice-label { position: absolute; z-index: 1; bottom: 24px; left: 74px; display: grid; gap: 4px; overflow: hidden; min-width: 0; text-align: left; }
+  .choice-label strong { font-size: 1.1rem; line-height: 1.1; white-space: nowrap; opacity: 0; transform: translateX(20px); transition: opacity 350ms ease 160ms, transform 500ms ease 160ms; }
+  .choice-label small { color: #e5efff; font-size: .82rem; white-space: nowrap; opacity: 0; transform: translateX(20px); transition: opacity 350ms ease 220ms, transform 500ms ease 220ms; }
+  .tombstone-choice.active .choice-label strong, .tombstone-choice.active .choice-label small { opacity: 1; transform: translateX(0); }
+  .tombstone-choice:focus-visible { z-index: 2; outline: 3px solid var(--tiro-red); outline-offset: -5px; }
+  .why-bento { display: grid; gap: 16px; }
+  .why-bento > * { min-height: 210px; border-radius: 24px; }
+  .why-intro { position: relative; overflow: hidden; padding: 38px; background: var(--tiro-navy); color: white; }
+  .why-intro .eyebrow { color: #fff; }
+  .why-intro h2 { position: relative; z-index: 1; max-width: 12ch; margin: 18px 0; font-size: clamp(2.35rem, 4vw, 4.4rem); line-height: .98; letter-spacing: -.055em; }
+  .why-intro p:not(.eyebrow) { position: relative; z-index: 1; max-width: 28ch; margin: 0; color: #d8e6ff; font-size: 1.05rem; }
+  .why-intro-mark { position: absolute; right: -28px; bottom: -82px; color: #ffffff12; font-size: 20rem; font-weight: 200; line-height: 1; }
+  .why-card { padding: 30px; color: var(--tiro-navy); }
+  .why-card h3 { max-width: 12ch; margin: 30px 0 8px; font-size: 1.35rem; line-height: 1.1; }
+  .why-card p { margin: 0; font-size: .98rem; }
+  .why-circle { background: #e8f0ff; }
+  .why-digital { background: var(--tiro-red); color: white; }
+  .why-digital .why-icon { border-color: #ffffff80; background: #ffffff1a; }
+  .why-icon { display: grid; width: 44px; height: 44px; place-items: center; border: 1px solid #0c3f9140; border-radius: 14px; background: white; }
+  .why-icon svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+  .why-support { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 160px; padding: 30px 38px; background: var(--tiro-blue); color: white; text-decoration: none; transition: background 180ms ease, transform 180ms ease; }
+  .why-support:hover { background: var(--tiro-navy); transform: translateY(-2px); }
+  .why-support span { display: grid; gap: 8px; }
+  .why-support strong { font-size: clamp(1.5rem, 2.2vw, 2.15rem); line-height: 1; }
+  .why-support small { font-size: 1rem; }
+  .why-support b { display: grid; width: 64px; height: 64px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: white; color: var(--tiro-red); font-size: 2rem; font-weight: 400; }
+  .steps, .benefits { display: grid; gap: 16px; margin-top: 32px; }
+  .steps .card { display: grid; align-content: center; min-height: 190px; padding: 24px 28px; border: 1px solid #ffffff3b; border-radius: 15px; background: linear-gradient(135deg, #122f61, #1d447d); color: white; box-shadow: 0 14px 30px #071a3d14; }
+  .benefits .card { padding: 28px; }
+  .benefits h3 { margin: 0 0 8px; color: var(--tiro-navy); font-size: 1.25rem; }
+  .benefits p { margin: 0; }
+  .steps span { color: #ff5a69; font-size: 1.5rem; font-weight: 800; }
+  .steps h3 { margin: 16px 0 8px; color: white; font-size: 1.4rem; }
+  .steps p { margin: 0; color: #dbe8ff; }
+  .final-cta { background: var(--tiro-soft-white); }
+  .final-cta .container { max-width: 840px; text-align: center; }
+  .final-cta .eyebrow { margin-bottom: 16px; }
+  .final-cta p:not(.eyebrow) { font-size: 1.1rem; }
+  .final-cta .button { margin-top: 18px; }
+  .next-grid { display: grid; gap: 24px; }
+  .mini-hero { position: relative; display: grid; min-height: 148px; overflow: hidden; border: 1px solid #d9e2f0; border-radius: 18px; background: white; box-shadow: 0 12px 28px #071a3d0d; }
+  .mini-hero-copy { position: relative; z-index: 2; padding: 14px; }
+  .mini-hero-copy .eyebrow { margin-bottom: 8px; font-size: .7rem; }
+  .mini-hero-copy h2 { max-width: 16ch; margin: 0; color: var(--tiro-navy); font-size: clamp(1.3rem, 1.85vw, 1.55rem); line-height: .98; letter-spacing: -.045em; }
+  .mini-hero-copy p:not(.eyebrow) { max-width: 38ch; margin: 8px 0 0; font-size: .78rem; line-height: 1.4; }
+  .mini-hero-copy .button { min-height: 36px; margin-top: 10px; padding: 7px 13px; font-size: .78rem; }
+  .mini-hero-visual { position: absolute; top: 0; right: 0; bottom: 0; width: 34%; display: grid; place-items: center; overflow: hidden; clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+  .mini-hero.is-revealed .mini-hero-visual { animation: mini-image-reveal 1.2s cubic-bezier(.075, .82, .165, 1) forwards; }
+  .mini-hero-visual::before, .mini-hero-visual::after { content: ''; position: absolute; border: 1px solid #ffffff66; border-radius: 50%; }
+  .mini-hero-visual::before { width: 180px; height: 180px; }
+  .mini-hero-visual::after { width: 280px; height: 280px; }
+  .mini-hero-visual span { position: relative; z-index: 1; color: white; font-size: clamp(1.4rem, 3vw, 2.35rem); font-weight: 900; letter-spacing: -.06em; transform: rotate(-90deg); }
+  .mini-hero--learn .mini-hero-visual { background: linear-gradient(145deg, #ed1b2f, #9d0717); }
+  .mini-hero--branches .mini-hero-visual { background: linear-gradient(145deg, #0d4da8, #061b43); }
+  @keyframes mini-image-reveal { from { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); } to { clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%); } }
+  @media (min-width: 720px) { .proof { padding-block: 28px; } .proof-card { width: 420px; min-height: 170px; padding: 28px; } .steps, .benefits { grid-template-columns: repeat(3, 1fr); } .why-bento { grid-template-columns: 1.15fr .85fr .85fr; grid-template-rows: repeat(2, minmax(170px, 1fr)); } .why-intro { grid-row: span 2; } .why-support { grid-column: span 2; } }
+  @media (min-width: 960px) { .hero-grid { grid-template-columns: 1.4fr .7fr; } .split { grid-template-columns: 1fr 1fr; } .shaded .split { grid-template-columns: 1.3fr .7fr; } .shaded .tombstone-copy { order: 2; } .next-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 960px) { .hero-grid { grid-template-columns: 1.15fr .95fr; gap: 24px; } }
+  @media (min-width: 960px) { .hero-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) { .tombstone-selector { min-height: 310px; } .tombstone-choice { min-width: 38px; padding: 16px 10px; } .tombstone-choice.active { flex: 5 1 0; } .choice-icon { bottom: 16px; width: 36px; height: 36px; } .tombstone-choice.active .choice-icon { left: 12px; } .choice-label { bottom: 18px; left: 58px; } .circle-member { padding: 1px 3px; font-size: .53rem; } }
+  @media (prefers-reduced-motion: reduce) { .campaign-slide, .ripple, .proof-track, .mini-hero-visual::before, .mini-hero-visual::after, .mini-hero-visual span, .mini-hero.is-revealed .mini-hero-visual { transition: none; animation: none; } .mini-hero-visual { clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%); } }
+</style>

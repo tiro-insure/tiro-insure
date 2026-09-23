@@ -1,0 +1,20 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import CampaignCoverflow from '../../components/CampaignCoverflow.astro';
+const campaignSlides = [
+  { key: 'claims', label: 'TIRO campaign creative: claims paid in 24 hours.' },
+  { key: 'quick', label: 'TIRO campaign creative: covered in under 2 minutes.' },
+  { key: 'price', label: 'TIRO campaign creative: from R60 a month.' },
+  { key: 'campaign-circle', label: 'TIRO campaign creative: cover your whole circle.' },
+  { key: 'support', label: 'TIRO campaign creative: digital convenience and human support.' },
+  { key: 'heritage', label: 'TIRO campaign creative: 15 years of showing up.' },
+];
+---
+<SiteLayout title="Funeral cover" description="Explore TIRO funeral cover for yourself and your circle.">
+  <section class="cover-hero"><div class="container cover-grid"><div class="cover-copy"><p class="eyebrow">TIRO funeral cover</p><h1>Cover the people who count on you.</h1><p>Simple cover designed around your circle, with a choice of online or face-to-face support.</p><a class="button button-primary" href="/cover/discover/">Find my cover <span aria-hidden="true">›</span></a><p class="underwriting">Tiro funeral cover is underwritten by KGA Life Insurance.</p></div><CampaignCoverflow slides={campaignSlides} label="TIRO funeral cover campaign highlights" /></div></section>
+  <section class="campaign-section section"><div class="container"><div class="campaign-heading"><p class="eyebrow">Ready when you are</p><h2 class="heading">Find the cover that fits your circle.</h2><p>Answer three simple questions to see the options that match the information you select. There is no commitment or payment at this step.</p></div><div class="cover-next"><div><p class="eyebrow">Start your cover search</p><h2>Tell us a little about the people you want to protect.</h2><p>Choose a simple online journey, or get face-to-face support at a branch.</p></div><a class="button button-primary" href="/cover/discover/">Start finding cover <span aria-hidden="true">›</span></a></div></div></section>
+</SiteLayout>
+<style>
+  .cover-hero{padding:clamp(72px,9vw,132px) 0;background:var(--tiro-navy);color:#fff}.cover-grid{display:grid;gap:40px;align-items:center}.cover-copy{max-width:680px}.cover-hero .eyebrow{color:#dbe8ff}.cover-hero h1{margin:10px 0 18px;font-size:clamp(3rem,6.5vw,5.5rem);line-height:.96;letter-spacing:-.07em}.cover-copy>p:not(.eyebrow,.underwriting){max-width:560px;font-size:clamp(1.05rem,2vw,1.25rem)}.underwriting{margin:20px 0 0;color:#dbe8ff;font-size:.8rem}.campaign-tile{aspect-ratio:.43;border:1px solid #dbe1e9;background-image:url('/brand/campaigns/a_clean_grid_style_advertisement_poster_layout_s.png');background-repeat:no-repeat;background-size:318% 200%;box-shadow:0 12px 28px #071a3d18}.campaign-tile.claims{background-position:0% 0%}.campaign-tile.quick{background-position:50% 0%}.campaign-tile.price{background-position:100% 0%}.campaign-tile.circle{background-position:0% 100%}.campaign-tile.support{background-position:50% 100%}.campaign-tile.heritage{background-position:100% 100%}.hero-poster{width:min(100%,300px);justify-self:center;border:5px solid #fff;border-radius:18px;box-shadow:0 24px 60px #0007}.campaign-section{background:var(--tiro-soft-white)}.campaign-heading{max-width:720px}.campaign-heading p:not(.eyebrow){font-size:1.05rem}.campaign-showcase{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:34px}.cover-next{display:grid;gap:22px;align-items:center;margin-top:clamp(48px,7vw,82px);padding:clamp(24px,4vw,38px);border-radius:22px;background:#fff}.cover-next h2{margin:8px 0;color:var(--tiro-navy);font-size:clamp(1.7rem,3vw,2.4rem);letter-spacing:-.04em}.cover-next p:not(.eyebrow){margin:0;color:var(--tiro-grey)}@media(min-width:680px){.campaign-showcase{grid-template-columns:repeat(6,minmax(0,1fr))}}@media(min-width:850px){.cover-grid{grid-template-columns:1fr .45fr}.cover-next{grid-template-columns:1fr auto}}@media(prefers-reduced-motion:reduce){.button:hover{transform:none}}
+  @media(min-width:850px){.cover-grid{grid-template-columns:1.05fr .95fr;gap:24px}}
+</style>

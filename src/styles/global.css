@@ -1,0 +1,38 @@
+@import "tailwindcss";
+@import "@fontsource-variable/manrope/index.css";
+
+:root {
+  color-scheme: light;
+  font-family: "Manrope Variable", Inter, Arial, sans-serif;
+  font-synthesis: none;
+  --tiro-blue: #032e76;
+  --tiro-red: #e51729;
+  --tiro-navy: #071a3d;
+  --tiro-charcoal: #20242b;
+  --tiro-grey: #697386;
+  --tiro-light-grey: #e9edf3;
+  --tiro-soft-white: #f7f9fc;
+  --content-max: 1280px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--tiro-charcoal); background: white; font-size: 16px; line-height: 1.55; }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; }
+:focus-visible { outline: 3px solid var(--tiro-red); outline-offset: 3px; }
+.container { width: min(calc(100% - 40px), var(--content-max)); margin-inline: auto; }
+.section { padding-block: clamp(64px, 8vw, 104px); }
+.eyebrow { color: var(--tiro-blue); font-size: .88rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+.heading { color: var(--tiro-navy); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.1; letter-spacing: -.035em; }
+.button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 12px 22px; border: 2px solid transparent; border-radius: 14px; font-weight: 800; text-decoration: none; transition: background 180ms, transform 180ms, border-color 180ms; }
+.button:hover { transform: translateY(-2px); }
+.button-primary { background: var(--tiro-red); color: white; }
+.button-primary:hover { background: #bf1021; }
+.button-secondary { border-color: var(--tiro-blue); color: var(--tiro-blue); background: white; }
+.button-secondary:hover { background: var(--tiro-soft-white); }
+.card { border: 1px solid var(--tiro-light-grey); border-radius: 24px; background: white; }
+@media (min-width: 768px) { .container { width: min(calc(100% - 64px), var(--content-max)); } }
+@media (min-width: 1200px) { .container { width: min(calc(100% - 80px), var(--content-max)); } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }

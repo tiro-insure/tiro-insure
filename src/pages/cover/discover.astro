@@ -1,0 +1,103 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+
+const circleOptions = [
+  { value: 'myself', label: 'Just me', detail: 'Cover for one person.' },
+  { value: 'partner', label: 'Me + partner', detail: 'Cover for you and your partner.' },
+  { value: 'family', label: 'My family', detail: 'Include your children where eligible.' },
+  { value: 'extended', label: 'Extended family', detail: 'Build a wider circle where eligible.' },
+];
+const coverOptions = ['R10,000 – R20,000', 'R20,000 – R35,000', 'R35,000 – R50,000', 'I want to compare'];
+const budgetOptions = ['Up to R100', 'R100 – R250', 'R250 – R500', 'I want to compare'];
+---
+<SiteLayout title="Find cover" description="Find TIRO cover options that match the information you select.">
+  <section class="discovery section">
+    <div class="container">
+      <a class="back-link" href="/cover/">← Back to cover</a>
+      <header class="intro"><p class="eyebrow">Find your cover</p><h1>Start with the people who matter most.</h1><p>Answer three simple questions. We’ll show options that match the information you select.</p></header>
+      <div class="progress" aria-label="Cover discovery progress"><span class="progress-line"></span><span class="progress-dot active" data-progress="1">1</span><span class="progress-dot" data-progress="2">2</span><span class="progress-dot" data-progress="3">3</span><span class="progress-dot" data-progress="4">4</span></div>
+      <form id="cover-discovery" novalidate>
+        <fieldset class="step active" data-step="1"><legend>Who do you want to cover?</legend><p class="step-help">Choose the option closest to your needs.</p><div class="choice-grid">{circleOptions.map((option) => <label class="choice-card"><input type="radio" name="circle" value={option.value} /><span><strong>{option.label}</strong><small>{option.detail}</small></span><i aria-hidden="true">→</i></label>)}</div></fieldset>
+        <fieldset class="step" data-step="2"><legend>How much cover are you looking for?</legend><p class="step-help">You can compare options if you’re still deciding.</p><div class="choice-grid compact">{coverOptions.map((option) => <label class="choice-card"><input type="radio" name="cover" value={option} /><span><strong>{option}</strong></span><i aria-hidden="true">→</i></label>)}</div></fieldset>
+        <fieldset class="step" data-step="3"><legend>What’s your monthly budget?</legend><p class="step-help">This helps us organise your options. It is not financial advice.</p><div class="choice-grid compact">{budgetOptions.map((option) => <label class="choice-card"><input type="radio" name="budget" value={option} /><span><strong>{option}</strong></span><i aria-hidden="true">→</i></label>)}</div></fieldset>
+        <section class="step results" data-step="4" aria-live="polite"><p class="eyebrow">Your starting point</p><h2>These options match the information you selected.</h2><p>Final pricing, eligibility and policy terms will appear here when TIRO’s product data is connected.</p><div class="result-grid"><article class="result-card"><span class="tag">Product 01</span><h3>Cover for your circle</h3><p>Product details will be confirmed by TIRO.</p><button type="button" class="button button-primary" data-select-product="Product 01">Choose this cover <span aria-hidden="true">›</span></button></article><article class="result-card"><span class="tag neutral">Product 02</span><h3>Compare another option</h3><p>Review cover amounts, dependants and policy terms once available.</p><button type="button" class="button button-secondary" data-select-product="Product 02">Compare cover <span aria-hidden="true">›</span></button></article></div><aside class="underwriting-note">Tiro funeral cover is underwritten by KGA Life Insurance.</aside></section>
+        <div class="form-actions"><button type="button" class="button button-secondary" id="previous" hidden>Back</button><button type="button" class="button button-primary" id="next">Continue <span aria-hidden="true">›</span></button></div>
+        <p class="form-error" id="form-error" role="alert" hidden>Please choose an option to continue.</p>
+      </form>
+    </div>
+  </section>
+</SiteLayout>
+<script>
+  const form = document.querySelector<HTMLFormElement>('#cover-discovery');
+  const next = document.querySelector<HTMLButtonElement>('#next');
+  const previous = document.querySelector<HTMLButtonElement>('#previous');
+  const error = document.querySelector<HTMLElement>('#form-error');
+
+  if (form && next && previous && error) {
+    const discoveryForm = form;
+    const nextButton = next;
+    const previousButton = previous;
+    const errorMessage = error;
+    const steps = Array.from(discoveryForm.querySelectorAll<HTMLElement>('.step'));
+    const dots = Array.from(document.querySelectorAll<HTMLElement>('.progress-dot'));
+    let current = 1;
+    const fieldForStep: Record<number, string> = { 1: 'circle', 2: 'cover', 3: 'budget' };
+
+    function render() {
+      steps.forEach((step) => step.classList.toggle('active', Number(step.dataset.step) === current));
+      dots.forEach((dot) => dot.classList.toggle('active', Number(dot.dataset.progress) <= current));
+      previousButton.hidden = current === 1;
+      nextButton.hidden = current === 4;
+      errorMessage.hidden = true;
+      const heading = discoveryForm.querySelector<HTMLElement>(`[data-step="${current}"] legend, [data-step="${current}"] h2`);
+      heading?.focus();
+    }
+
+    nextButton.addEventListener('click', () => {
+      const selected = discoveryForm.querySelector(`input[name="${fieldForStep[current]}"]:checked`);
+      if (!selected) { errorMessage.hidden = false; return; }
+      current += 1;
+      render();
+    });
+    previousButton.addEventListener('click', () => { current -= 1; render(); });
+    discoveryForm.querySelectorAll<HTMLButtonElement>('[data-select-product]').forEach((button) => button.addEventListener('click', () => {
+      const product = button.dataset.selectProduct ?? 'Product 01';
+      window.location.href = `/cover/circle/?product=${encodeURIComponent(product)}`;
+    }));
+  }
+</script>
+<style>
+  .discovery { background: var(--tiro-soft-white); min-height: 75vh; }
+  .back-link { color: var(--tiro-blue); font-weight: 800; text-underline-offset: 5px; }
+  .intro { max-width: 720px; margin-top: 40px; }
+  .intro h1 { margin: 12px 0 16px; color: var(--tiro-navy); font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.06; letter-spacing: -.045em; }
+  .intro > p:not(.eyebrow) { max-width: 620px; font-size: 1.1rem; }
+  .progress { position: relative; display: flex; justify-content: space-between; max-width: 640px; margin: 44px 0 40px; }
+  .progress-line { position: absolute; top: 20px; left: 20px; right: 20px; height: 2px; background: var(--tiro-light-grey); }
+  .progress-dot { position: relative; z-index: 1; width: 42px; height: 42px; display: grid; place-items: center; border: 2px solid var(--tiro-light-grey); border-radius: 50%; background: white; color: var(--tiro-grey); font-weight: 800; }
+  .progress-dot.active { border-color: var(--tiro-red); background: var(--tiro-red); color: white; }
+  .step { display: none; max-width: 960px; margin: 0; padding: 0; border: 0; }
+  .step.active { display: block; }
+  legend, .results h2 { max-width: 800px; color: var(--tiro-navy); font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; line-height: 1.12; letter-spacing: -.035em; }
+  .step-help { margin: 12px 0 24px; color: var(--tiro-grey); font-size: 1.05rem; }
+  .choice-grid { display: grid; gap: 14px; }
+  .choice-card { min-height: 104px; display: flex; align-items: center; gap: 16px; padding: 20px; border: 2px solid var(--tiro-light-grey); border-radius: 18px; background: white; color: var(--tiro-navy); cursor: pointer; transition: border-color 180ms, transform 180ms, box-shadow 180ms; }
+  .choice-card:hover { transform: translateY(-2px); border-color: #97a7bd; box-shadow: 0 10px 24px #071a3d0d; }
+  .choice-card:has(input:checked) { border-color: var(--tiro-blue); box-shadow: 0 0 0 3px #032e7615; }
+  .choice-card input { width: 22px; height: 22px; accent-color: var(--tiro-red); flex: 0 0 auto; }
+  .choice-card span { display: grid; gap: 4px; }
+  .choice-card strong { font-size: 1.08rem; }
+  .choice-card small { color: var(--tiro-grey); font-size: .92rem; }
+  .choice-card i { margin-left: auto; color: var(--tiro-red); font-size: 1.5rem; font-style: normal; }
+  .form-actions { display: flex; gap: 12px; margin-top: 30px; }
+  .form-error { color: #a31220; font-weight: 700; }
+  .results > p { max-width: 680px; font-size: 1.05rem; }
+  .result-grid { display: grid; gap: 16px; margin-top: 28px; }
+  .result-card { padding: 28px; border: 1px solid var(--tiro-light-grey); border-radius: 24px; background: white; }
+  .tag { display: inline-block; padding: 5px 10px; border-radius: 999px; background: var(--tiro-red); color: white; font-size: .8rem; font-weight: 800; }
+  .tag.neutral { background: var(--tiro-light-grey); color: var(--tiro-blue); }
+  .result-card h3 { margin: 16px 0 8px; color: var(--tiro-navy); font-size: 1.4rem; }
+  .result-card .button { margin-top: 16px; }
+  .underwriting-note { margin-top: 24px; color: var(--tiro-grey); font-size: .86rem; }
+  @media (min-width: 700px) { .choice-grid { grid-template-columns: repeat(2, 1fr); } .choice-grid.compact { grid-template-columns: repeat(2, 1fr); } .result-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
