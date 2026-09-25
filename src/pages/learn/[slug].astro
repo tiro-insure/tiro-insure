@@ -6,6 +6,7 @@ export const prerender = true;
 export function getStaticPaths() { return articles.map((article) => ({ params: { slug: article.slug }, props: { article } })); }
 interface Props { article: Article; }
 const { article } = Astro.props;
+if (article.slug === 'what-to-prepare-for-a-funeral-claim') return Astro.redirect('/claims/#claim-guide', 301);
 const published = new Intl.DateTimeFormat('en-ZA', { dateStyle: 'long' }).format(new Date(`${article.publishedAt}T00:00:00`));
 ---
 <SiteLayout title={article.title} description={article.description}>

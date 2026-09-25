@@ -1,0 +1,36 @@
+---
+const benefits = [
+  { title: 'Claims paid in 24 hours.', detail: 'Money when your family needs it most.' },
+  { title: 'Covered in under 2 minutes.', detail: 'Simple insurance. No unnecessary fuss.' },
+  { title: 'From R60 a month.', detail: 'Protection that fits your pocket.' },
+  { title: 'Cover your whole circle.', detail: 'You. Family. Extended family.' },
+  { title: 'Digital convenience. Human support.', detail: 'Online or face-to-face. You choose.' },
+  { title: '15 years of showing up.', detail: 'Thousands of South African families served.' },
+];
+---
+
+<section class="benefit-marquee" aria-label="TIRO benefits">
+  <div class="marquee-window">
+    <div class="marquee-track">
+      {[...benefits, ...benefits].map((benefit) => (
+        <article class="benefit-card">
+          <strong>{benefit.title}</strong>
+          <span>{benefit.detail}</span>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .benefit-marquee { padding-block: 21px; overflow: hidden; background: var(--tiro-blue); }
+  .marquee-window { overflow: hidden; mask-image: linear-gradient(to right, transparent, black 9%, black 91%, transparent); }
+  .marquee-track { display: flex; width: max-content; gap: 16px; padding-inline: 16px; animation: benefit-scroll 34s linear infinite; }
+  .marquee-window:hover .marquee-track { animation-play-state: paused; }
+  .benefit-card { display: grid; width: min(270px, calc(100vw - 42px)); min-height: 111px; flex: 0 0 auto; align-content: space-between; gap: 14px; padding: 18px; border: 1px solid #ffffff3d; border-radius: 18px; background: linear-gradient(145deg, #10264e, #07152e); box-shadow: 0 14px 28px #04112745; color: white; }
+  .benefit-card strong { font-size: clamp(.95rem, 1.35vw, 1.28rem); line-height: 1.12; }
+  .benefit-card span { color: #dbe8ff; font-size: .71rem; }
+  @keyframes benefit-scroll { to { transform: translateX(calc(-50% - 8px)); } }
+  @media (min-width: 720px) { .benefit-card { width: 315px; min-height: 128px; padding: 21px; } }
+  @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+</style>
