@@ -12,10 +12,12 @@ export interface Tombstone {
   featured: boolean;
   needsReview: boolean;
   description: string;
+  model3d?: string;
 }
 
 // Values preserve the brochure's labels exactly. T/P and A/P definitions require TIRO confirmation.
 export const tombstones: Tombstone[] = [
+  { name: '3D Interactive Memorial', slug: '3d-interactive-memorial', category: 'Premium / Limited Edition', image: '/images/tombstones/3d-interactive-preview.svg', brochurePrices: ['Price on request'], promotionalBadge: '360° 3D view', laybyeEnabled: true, featured: true, needsReview: false, description: 'Explore this memorial from every angle with an interactive 3D preview.', model3d: '/3D%20tombestones/agentic_0005_pack_glb_model.glb' },
   { name: 'Baby Kemi', slug: 'baby-kemi', category: 'Baby Tombstones', image: '/images/tombstones/baby-kemi.webp', brochurePrices: ['Now R15,300 A/P'], previousPrice: 'Was R18,000', laybyeEnabled: true, featured: true, needsReview: true, description: 'Overhanging kerbs and copings.' },
   { name: 'Baby Butterfly', slug: 'baby-butterfly', category: 'Baby Tombstones', image: '/images/tombstones/baby-butterfly.webp', brochurePrices: ['R8,330 T/P', 'Now R11,730 A/P'], previousPrice: 'Was R13,800', laybyeEnabled: true, featured: true, needsReview: true, description: 'Product shown in the 2026 TIRO tombstones catalogue.' },
   { name: 'Baby Sibaba Full', slug: 'baby-sibaba-full', category: 'Baby Tombstones', image: '/images/tombstones/baby-sibaba.webp', brochurePrices: ['R6,162.50 T/P', 'Now R7,225 A/P'], previousPrice: 'Was R8,500', laybyeEnabled: true, featured: false, needsReview: true, description: 'Product shown in the 2026 TIRO tombstones catalogue.' },

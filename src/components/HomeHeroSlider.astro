@@ -15,8 +15,8 @@ import OfferHero from './OfferHero.astro';
         headingMiddle="starting"
         headingHighlight="from R174 a month."
         lead="Choose a memorial with care. Browse, select and personalise the details and arrange installation with support from our team."
-        highlightPrimary={{ label: 'Selected range', value: '15% OFF', sub: 'selected tombstones' }}
-        highlightSecondary={{ label: 'Lay-by up to', value: '24', sub: 'months to pay' }}
+        highlightPrimary={{ value: 'We deliver in seven provinces', variant: 'service-title' }}
+        highlightSecondary={{ value: 'We manufacture high quality tombstones straight from our factory. We use the best granite sourced from quarries and use quality technology and processes to bring you refined quality stones.', variant: 'service-copy' }}
         primaryCta={{ label: 'Browse tombstones', href: '/tombstones/' }}
         secondaryCta={{ label: 'Create a custom memorial', href: '/tombstones/custom/' }}
         note="Selected products, delivery, installation and lay-by terms are confirmed with TIRO before an order is finalised."
@@ -77,7 +77,7 @@ import OfferHero from './OfferHero.astro';
   .slider-panels { display: grid; }
   .slider-panel { grid-area: 1 / 1; min-width: 0; opacity: 0; pointer-events: none; visibility: hidden; transform: translateX(3%); transition: opacity 620ms ease, transform 620ms ease, visibility 0s linear 620ms; }
   .slider-panel.active { z-index: 1; opacity: 1; pointer-events: auto; visibility: visible; transform: translateX(0); transition-delay: 0s; }
-  .slider-controls { position: absolute; z-index: 3; right: calc(clamp(20px, 5vw, 80px) + 200px); bottom: calc(clamp(130px, 10vw, 175px) - 35px); display: flex; align-items: center; gap: 13px; transform: translateY(-140px); }
+  .slider-controls { display: none; }
   .slider-arrow { display: grid; width: 40px; height: 40px; place-items: center; padding: 0; border: 1px solid #ffffff8f; border-radius: 50%; background: #ffffff12; color: white; font-size: 1.7rem; line-height: 1; cursor: pointer; backdrop-filter: blur(8px); }
   .slider-arrow:hover { background: #ffffff2a; }
   .slider-arrow:focus-visible, .slider-dot:focus-visible { outline: 3px solid #ed1b2f; outline-offset: 3px; }

@@ -54,10 +54,11 @@ const nav = [
         </details>
       </div>
     </header>
+    <div class="site-header-spacer" aria-hidden="true"></div>
     <main id="main"><slot /></main>
     <footer class="site-footer">
       <div class="container footer-showcase">
-        <div class="footer-cta-copy"><p class="footer-eyebrow">Here for you</p><h2>Digital convenience.<br />Human support.</h2><p>Online or face-to-face. You choose.</p><div class="footer-cta-actions"><a class="footer-cta-link" href="/branches/">Find a branch <span aria-hidden="true">›</span></a><a class="footer-cta-link footer-cta-link--secondary" href="/cover/discover/">Get a quote <span aria-hidden="true">›</span></a><a class="footer-cta-link footer-cta-link--secondary" href="/cover/application/">Get covered <span aria-hidden="true">›</span></a><a class="footer-cta-link footer-cta-link--secondary" href="/branches/">Talk to TIRO <span aria-hidden="true">›</span></a></div></div>
+        <div class="footer-cta-copy"><p class="footer-eyebrow">Here for you</p><h2>Digital convenience.<br />Human support.</h2><p>Online or face-to-face. You choose.</p><div class="footer-cta-actions"><a class="footer-cta-link" href="/branches/">Find a branch <span aria-hidden="true">›</span></a><a class="footer-cta-link footer-cta-link--secondary" href="/cover/#find-cover">Get a quote <span aria-hidden="true">›</span></a><a class="footer-cta-link footer-cta-link--secondary" href="/cover/#find-cover">Get covered <span aria-hidden="true">›</span></a><a class="footer-cta-link footer-cta-link--secondary" href="/branches/">Talk to TIRO <span aria-hidden="true">›</span></a></div></div>
         <div class="footer-marquee" aria-label="TIRO tombstone gallery">
           <div class="marquee-row marquee-row--reverse"><div class="marquee-track"><img src="/images/tombstones/06.webp" alt="" /><img src="/images/tombstones/05.webp" alt="" /><img src="/images/tombstones/04.webp" alt="" /><img src="/images/tombstones/03.webp" alt="" /><img src="/images/tombstones/06.webp" alt="" /><img src="/images/tombstones/05.webp" alt="" /><img src="/images/tombstones/04.webp" alt="" /><img src="/images/tombstones/03.webp" alt="" /></div></div>
           <div class="marquee-row"><div class="marquee-track"><img src="/images/tombstones/02.webp" alt="" /><img src="/images/tombstones/03.webp" alt="" /><img src="/images/tombstones/04.webp" alt="" /><img src="/images/tombstones/05.webp" alt="" /><img src="/images/tombstones/02.webp" alt="" /><img src="/images/tombstones/03.webp" alt="" /><img src="/images/tombstones/04.webp" alt="" /><img src="/images/tombstones/05.webp" alt="" /></div></div>
@@ -69,13 +70,34 @@ const nav = [
       </div>
       <div class="container footer-bottom">© {new Date().getFullYear()} TIRO</div>
     </footer>
+    <script>
+      const siteHeader = document.querySelector<HTMLElement>('.site-header');
+      if (siteHeader) {
+        let scrollFrame: number | undefined;
+
+        const updateHeader = () => {
+          const currentScrollY = Math.max(0, window.scrollY);
+          siteHeader.classList.toggle('site-header--scrolled', currentScrollY > 8);
+          scrollFrame = undefined;
+        };
+
+        window.addEventListener('scroll', () => {
+          if (scrollFrame === undefined) scrollFrame = window.requestAnimationFrame(updateHeader);
+        }, { passive: true });
+
+        updateHeader();
+      }
+    </script>
   </body>
 </html>
 
 <style>
   .skip-link { position: absolute; top: -100px; left: 16px; z-index: 100; padding: 12px 18px; background: white; color: var(--tiro-blue); }
   .skip-link:focus { top: 12px; }
-  .site-header { position: relative; z-index: 10; border-bottom: 1px solid var(--tiro-light-grey); background: white; }
+  .site-header { position: fixed; z-index: 50; top: 0; right: 0; left: 0; border-bottom: 1px solid var(--tiro-light-grey); background: #fffffff5; box-shadow: 0 10px 30px transparent; backdrop-filter: blur(14px); animation: header-enter 500ms cubic-bezier(.2,.72,.2,1) both; transition: background-color 220ms ease, box-shadow 220ms ease; }
+  .site-header-spacer { height: 82px; }
+  .site-header--scrolled { background: #fffffff0; box-shadow: 0 10px 30px #071a3d18; }
+  @keyframes header-enter { from { opacity: 0; transform: translateY(-100%); } to { opacity: 1; transform: translateY(0); } }
   .header-inner { display: flex; min-height: 82px; align-items: center; gap: 24px; }
   .brand { flex: 0 0 auto; }
   .brand img { width: 118px; height: auto; }
@@ -86,7 +108,7 @@ const nav = [
   .desktop-nav a:hover { color: var(--tiro-red); }
   .desktop-nav a[aria-current="page"] { color: var(--tiro-red); }
   .desktop-nav a:hover::before, .desktop-nav a:focus-visible::before, .desktop-nav a[aria-current="page"]::before { transform: scaleX(1); }
-  .header-cta { display: none; min-height: 52px; gap: 10px; padding: 10px 18px; border-width: 4px; white-space: nowrap; border-color: var(--tiro-blue); background: white; color: var(--tiro-red); font-size: 1.1875rem; line-height: 1; }
+  .header-cta { display: none; min-height: 52px; gap: 10px; padding: 10px 18px; border-width: 3px; white-space: nowrap; border-color: var(--tiro-blue); background: white; color: var(--tiro-red); font-size: 1.1875rem; line-height: 1; }
   .header-cta:hover { border-color: var(--tiro-blue); background: var(--tiro-soft-white); color: var(--tiro-red); }
   .header-chevron { display: block; width: 8px; height: 13px; flex: 0 0 8px; color: var(--tiro-red); }
   .mobile-menu { margin-left: auto; color: var(--tiro-blue); font-size: 1.0625rem; font-weight: 800; }
@@ -130,5 +152,5 @@ const nav = [
   .footer-bottom { margin-top: 30px; padding-block: 20px; border-top: 1px solid #ffffff30; font-size: .875rem; }
   @media (min-width: 760px) { .footer-showcase { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center; padding-block: 56px; } .footer-marquee { margin-inline: 0 -20px; } .footer-inner { grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr); align-items: start; } }
   @media (min-width: 1040px) { .desktop-nav { display: flex; } .header-cta { display: inline-flex; } .mobile-menu { display: none; } .brand img { width: 136px; } .footer-showcase { padding-block: 66px; } }
-  @media (prefers-reduced-motion: reduce) { .marquee-row { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .site-header { animation: none; transition: none; } .marquee-row { animation: none; } }
 </style>

@@ -8,3 +8,4 @@ dist/
 *.log
 project-reference/
 tmp-brochure/
+.claude/settings.local.json

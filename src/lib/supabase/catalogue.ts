@@ -13,6 +13,7 @@ export interface CatalogueTombstone {
   featured: boolean;
   needsReview: boolean;
   description: string;
+  model3d?: string;
 }
 
 type TombstoneRow = {
@@ -79,8 +80,13 @@ export async function getPublicTombstoneCatalogue() {
     return { tombstones: fallbackTombstones, tombstoneCategories: fallbackCategories, source: 'fallback' as const };
   }
 
+  const publishedTombstones = (tombstoneData as TombstoneRow[]).map(toCatalogueTombstone);
+  const interactiveTombstone = fallbackTombstones.find((item) => item.model3d);
+
   return {
-    tombstones: (tombstoneData as TombstoneRow[]).map(toCatalogueTombstone),
+    tombstones: interactiveTombstone && !publishedTombstones.some((item) => item.slug === interactiveTombstone.slug)
+      ? [interactiveTombstone, ...publishedTombstones]
+      : publishedTombstones,
     tombstoneCategories: categoryData.map((category) => category.name),
     source: 'supabase' as const,
   };

@@ -1,5 +1,54 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import SectionIntro from '../../components/SectionIntro.astro';
+const branches = [
+  { label: 'Head Office', detail: 'Shop A11, Thabong Shopping Centre, Moshoeshoe St, Sebokeng, Vereeniging.' },
+  { label: 'Protea Gardens Mall', detail: 'TIRO branch location.' },
+  { label: 'Pimville Square', detail: 'TIRO branch location.' },
+  { label: 'Dobsonville Point', detail: 'Also known as Dobsi Point.' },
+  { label: 'Mall of Thembisa', detail: 'TIRO branch location.' },
+  { label: 'Alex Mall', detail: 'Alexandra, Johannesburg.' },
+  { label: 'Eyethu Mall', detail: 'Orange Farm.' },
+];
 ---
-<SiteLayout title="Branches" description="Find TIRO branch and satellite branch information."><SectionIntro eyebrow="Branches" title="People close to home." description="Confirmed TIRO branch locations, hours and contact details will appear here." /></SiteLayout>
+<SiteLayout title="Branches" description="Find TIRO branch and satellite branch information.">
+  <section class="branches-hero section"><div class="container"><figure class="page-learn-testimonial"><div class="page-learn-avatar-wrap" aria-hidden="true"><span class="page-mask-line page-mask-line-left"></span><span class="page-mask-line page-mask-line-right"></span><span class="page-mask-line page-mask-line-top"></span><span class="page-mask-line page-mask-line-bottom"></span><img src="/images/about/branches.png" alt="" /></div><figcaption><p class="eyebrow">Branches</p><h1>People close to home.</h1><p>Find TIRO support at our head office and selected mall locations.</p></figcaption></figure></div></section>
+  <section class="branch-directory section"><div class="container"><p class="eyebrow">Visit TIRO</p><h2 class="heading">Support close to you.</h2><div class="branch-grid">{branches.map((branch, index) => <article class:list={['branch-card', { 'branch-card--head-office': index === 0 }]}><div><p class="branch-number">{String(index + 1).padStart(2, '0')}</p><h3>{branch.label}</h3><p>{branch.detail}</p></div><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span></article>)}</div><div class="branch-contact"><div><p class="eyebrow">Talk to TIRO</p><h3>We are here to help.</h3></div><div class="branch-contact-actions"><a href="tel:+27795112330">Hotline <strong>+27 79 511 2330</strong></a><a href="https://wa.me/27792436770" target="_blank" rel="noreferrer">WhatsApp <strong>+27 79 243 6770</strong></a></div></div></div></section>
+</SiteLayout>
+<style>
+  .branches-hero { background: white; color: var(--tiro-navy); }
+  .page-learn-testimonial { width: min(100%, 512px); margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .page-learn-avatar-wrap { position: relative; width: 96px; height: 96px; flex: 0 0 auto; }
+  .page-learn-avatar-wrap img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; mask-image: none; }
+  .page-mask-line { position: absolute; z-index: 0; background: #071a3d33; }
+  .page-mask-line-left, .page-mask-line-right { top: -85%; bottom: -85%; width: 1px; mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent); }
+  .page-mask-line-left { left: 0; }.page-mask-line-right { right: 0; }
+  .page-mask-line-top, .page-mask-line-bottom { left: 0; width: 576px; height: 1px; mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); }
+  .page-mask-line-top { top: 0; }.page-mask-line-bottom { bottom: 0; }
+  .page-learn-avatar-wrap::before, .page-learn-avatar-wrap::after { position: absolute; z-index: 0; left: -92px; width: 92px; height: 1px; content: ''; background: #071a3d33; mask-image: linear-gradient(to right, transparent, black); }
+  .page-learn-avatar-wrap::before { top: 0; }.page-learn-avatar-wrap::after { bottom: 0; }
+  .page-learn-testimonial figcaption { padding: 32px; text-align: center; }.page-learn-testimonial .eyebrow { margin-bottom: 12px; color: var(--tiro-blue); }
+  .branches-hero h1 { margin: 0; color: var(--tiro-navy); font-size: clamp(2rem, 4vw, 2.7rem); line-height: 1.06; letter-spacing: -.045em; }
+  .page-learn-testimonial figcaption > p:last-child { margin: 16px 0 0; color: var(--tiro-grey); font-size: 1.05rem; line-height: 1.45; }
+  @media (min-width: 720px) { .page-learn-testimonial { display: grid; grid-template-columns: auto 1fr; align-items: center; transform: translate(-370px, -30px); }.page-learn-avatar-wrap { width: 128px; height: 128px; }.page-learn-testimonial figcaption { padding: 24px; text-align: left; } }
+</style>
+<style>
+  .branch-directory { background: #f6f8fc; }
+  .branch-directory .heading { margin: 8px 0 0; }
+  .branch-grid { display: grid; gap: 18px; margin-top: 30px; }
+  .branch-card { position: relative; display: grid; min-height: 148px; grid-template-columns: minmax(0, 1fr) 31%; overflow: hidden; border: 1px solid #d9e2f0; border-radius: 18px; background: white; box-shadow: 0 12px 28px #071a3d0d; }
+  .branch-card > div { position: relative; z-index: 1; display: grid; align-content: center; padding: 24px; }
+  .branch-number { margin: 0 0 6px; color: var(--tiro-blue); font-size: .68rem; font-weight: 850; letter-spacing: .1em; }
+  .branch-card h3 { max-width: 18ch; margin: 0; color: var(--tiro-navy); font-size: clamp(1.2rem, 2vw, 1.55rem); line-height: 1; letter-spacing: -.045em; }
+  .branch-card h3 + p { max-width: 34ch; margin: 8px 0 0; color: var(--tiro-grey); font-size: .8rem; line-height: 1.42; }
+  .branch-card > span { position: relative; display: grid; place-items: center; overflow: hidden; background: var(--tiro-blue); color: white; font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 850; line-height: 1; }
+  .branch-card > span::before { position: absolute; inset: 0; content: ''; border: 1px solid #ffffff55; border-radius: 50%; transform: translate(-30%, 10%) scale(1.5); }
+  .branch-card:nth-child(odd) > span { background: var(--tiro-red); }
+  .branch-card > span { clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%); }
+  .branch-contact { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; margin-top: 26px; padding: 26px; border-radius: 18px; background: var(--tiro-navy); color: white; }
+  .branch-contact .eyebrow { margin: 0 0 8px; color: #7cb1ff; }
+  .branch-contact h3 { margin: 0; font-size: clamp(1.35rem, 2.4vw, 2rem); line-height: 1; letter-spacing: -.045em; }
+  .branch-contact-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .branch-contact-actions a { display: grid; gap: 2px; padding: 11px 14px; border: 1px solid #ffffff52; border-radius: 10px; color: white; font-size: .76rem; text-decoration: none; }
+  .branch-contact-actions strong { font-size: .9rem; }
+  @media (min-width: 720px) { .branch-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .branch-card { min-height: 170px; } .branch-card--head-office { grid-column: span 2; } }
+</style>

@@ -17,7 +17,7 @@ export const articles: Article[] = [
       { heading: 'Start with the people you want to protect', paragraphs: ['Funeral cover is designed to help provide financial support when a covered person passes away. A good first step is to think about who you want to include: yourself, a partner, children, parents or extended family.', 'The people who can be included depend on the product rules. It is useful to compare the options and confirm those rules before you apply.'] },
       { heading: 'Choose with the full details in front of you', paragraphs: ['Look at the cover amount, monthly premium, waiting periods, exclusions and who can be added. These details should be clear before you decide.', 'A guided journey can help you organise your needs, but it does not replace the product terms or personalised financial advice.'] },
       { heading: 'Keep your policy information safe', paragraphs: ['Once cover is issued, make sure the people close to you know where to find the policy number and the claim process. Keep your contact details and beneficiary information current with the insurer.'] },
-    ], cta: { label: 'Explore cover options', href: '/cover/discover/' },
+    ], cta: { label: 'Explore cover options', href: '/cover/#find-cover' },
   },
   {
     slug: 'how-to-choose-a-tombstone', category: 'Tombstones', title: 'How do I choose a tombstone?', description: 'A practical guide to choosing a memorial with confidence and care.', publishedAt: '2026-09-18', updatedAt: '2026-09-18', readTime: '5 min read',

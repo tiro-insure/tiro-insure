@@ -14,11 +14,19 @@
     "edit-campaign-poster": "node scripts/edit-campaign-poster.mjs"
   },
   "dependencies": {
+    "@astrojs/react": "^7.0.0",
     "@astrojs/vercel": "11.0.10",
     "@fontsource-variable/manrope": "5.3.0",
     "@supabase/supabase-js": "2.116.0",
     "@tailwindcss/vite": "4.3.3",
     "astro": "7.3.3",
+    "clsx": "^2.1.1",
+    "input-otp": "^1.5.0",
+    "lucide-react": "^1.48.0",
+    "motion": "^13.4.4",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "tailwind-merge": "^3.7.0",
     "tailwindcss": "4.3.3"
   },
   "devDependencies": {

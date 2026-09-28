@@ -17,6 +17,20 @@ const campaignSlides = [
   { key: 'support', label: 'TIRO campaign creative: digital convenience and human support.' },
   { key: 'heritage', label: 'TIRO campaign creative: 15 years of showing up.' },
 ];
+const testimonialPlaceholders = [
+  'https://www.youtube.com/watch?v=A5kbgFJILbs',
+  'https://www.youtube.com/watch?v=pfB7l_QZqR8',
+  'https://www.youtube.com/watch?v=eyULUakcrXM',
+  'https://www.youtube.com/watch?v=eHn0I7EACRA',
+  'https://www.youtube.com/watch?v=ABuIr83P_6c',
+  'https://www.youtube.com/watch?v=ZZIoGn_x3rw',
+  'https://www.youtube.com/watch?v=2ssS9O-Ea4Q',
+  'https://www.youtube.com/watch?v=D_8Z3SKmocw',
+].map((href, index) => ({
+  title: `TIRO family story ${index + 1}`,
+  href,
+  thumbnail: `https://i.ytimg.com/vi/${href.split('v=')[1]}/maxresdefault.jpg`,
+}));
 ---
 <SiteLayout title="People today. Brighter tomorrows" description="Explore TIRO funeral cover, tombstones, claims support and branch services in South Africa.">
   <HomeHeroSlider />
@@ -32,11 +46,29 @@ const campaignSlides = [
     </div>
   </section>
   <section class="proof" aria-label="Why families choose TIRO"><div class="proof-marquee"><div class="proof-track">{[...proof, ...proof].map((item) => <article class="proof-card"><strong>{item.value}</strong><span>{item.detail}</span></article>)}</div></div></section>
-  <section class="section" id="cover"><div class="container split"><div><p class="eyebrow">Cover your whole circle</p><h2 class="heading">Protection that includes the people closest to you.</h2><p>Explore funeral cover for yourself, your family and extended family. Find an option that fits your needs when product details are available.</p><a class="button button-secondary" href="/cover/">See cover options <span aria-hidden="true">›</span></a></div><div class="circle-card card" aria-label="Cover your whole circle: you, partner, children, parents, siblings, grandparents and in-laws."><span class="ripple ripple-one" aria-hidden="true"></span><span class="ripple ripple-two" aria-hidden="true"></span><span class="ripple ripple-three" aria-hidden="true"></span><span class="ripple ripple-four" aria-hidden="true"></span><span class="circle-label circle-you">You</span><span class="circle-label circle-family">Family</span><span class="circle-label circle-extended"><span class="extended-word">Extended</span><br />family</span><span class="circle-member member-partner">Partner</span><span class="circle-member member-children">Children</span><span class="circle-member member-parents">Parents</span><span class="circle-member member-siblings">Siblings</span><span class="circle-member member-grandparents">Grandparents</span><span class="circle-member member-inlaws">In-laws</span></div></div></section>
-  <section class="section shaded"><div class="container section-header"><p class="eyebrow">Tombstones</p><h2 class="heading">A lasting tribute to someone you love.</h2></div><div class="container split"><div class="tombstone-copy"><p class="eyebrow">Tombstones</p><h2 class="heading">A lasting tribute to someone you love.</h2><p>Browse the TIRO tombstone range and learn about<br />personalisation, installation and lay-bye options.</p><a class="button button-secondary" href="/tombstones/">Explore tombstones <span aria-hidden="true">›</span></a></div><section class="tombstone-selector" aria-label="Explore tombstone styles"><button class="tombstone-choice active" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/06.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20h14M7 20V9a5 5 0 0 1 10 0v11M12 8v7m-3.5-3.5h7" /></svg></span><span class="choice-label"><strong>Double memorial</strong><small>Classic granite</small></span></button><button class="tombstone-choice" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/05.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 7 7-7 11L5 10l7-7Zm-4 7h8" /></svg></span><span class="choice-label"><strong>Grand memorial</strong><small>Distinctive design</small></span></button><button class="tombstone-choice" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/04.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M7 8h10M5 21h14" /></svg></span><span class="choice-label"><strong>Floral tribute</strong><small>Honouring a life</small></span></button><button class="tombstone-choice" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/03.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V5h12v15M9 9h6M9 13h6" /></svg></span><span class="choice-label"><strong>Classic memorial</strong><small>Lasting tribute</small></span></button><button class="tombstone-choice" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/02.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.2 5.1 5.5.5-4.2 3.6 1.3 5.3-4.8-2.8-4.8 2.8 1.3-5.3-4.2-3.6 5.5-.5L12 3Z" /></svg></span><span class="choice-label"><strong>Portrait memorial</strong><small>Personal tribute</small></span></button></section></div></section>
-  <section class="section shaded"><div class="container"><p class="eyebrow">Simple from the start</p><h2 class="heading">How it works</h2><div class="steps"><div class="card"><span>01</span><h3>Choose</h3><p>Find the cover that works for your circle.</p></div><div class="card"><span>02</span><h3>Apply</h3><p>Share your details in a guided application.</p></div><div class="card"><span>03</span><h3>Get covered</h3><p>Receive your policy once your application and payment are confirmed.</p></div></div></div></section>
-  <section class="section why-tiro"><div class="container"><div class="section-header"><p class="eyebrow">Why TIRO</p><h2 class="heading">Built around what matters.</h2></div><div class="why-bento"><article class="why-intro"><p class="eyebrow">Why TIRO</p><h2>Simple to use.<br />Here to help.</h2><p>Practical funeral cover for the people who matter most, with support at every step.</p><span class="why-intro-mark" aria-hidden="true">+</span></article><article class="why-card why-circle"><span class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="3" /></svg></span><h3>Cover your whole circle</h3><p>You. Family. Extended family.</p></article><article class="why-card why-digital"><span class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4h12v16H6zM9 8h6M9 12h6M11 16h2" /></svg></span><h3>Digital convenience</h3><p>Explore your options when it suits you.</p></article><a class="why-support" href="/branches/"><span><strong>Human support</strong><small>Talk to TIRO when you want a person to help.</small></span><b aria-hidden="true">→</b></a></div></div></section>
-  <section class="section"><div class="container"><div class="section-header"><p class="eyebrow">Learn and branches</p><h2 class="heading">Answers and support, close to home.</h2></div><div class="next-grid"><article class="mini-hero mini-hero--learn"><div class="mini-hero-copy"><p class="eyebrow">Learn</p><h2>Good questions deserve clear answers.</h2><p>Explore plain-language information about cover, claims, tombstones and family finances.</p><a class="button button-secondary" href="/learn/">Visit Learn <span aria-hidden="true">›</span></a></div><div class="mini-hero-visual" aria-hidden="true"><span>Learn</span></div></article><article class="mini-hero mini-hero--branches"><div class="mini-hero-copy"><p class="eyebrow">Branches</p><h2>Support close to home.</h2><p>TIRO combines online convenience with face-to-face support.</p><a class="button button-secondary" href="/branches/">Find a branch <span aria-hidden="true">›</span></a></div><div class="mini-hero-visual" aria-hidden="true"><span>TIRO</span></div></article></div></div></section>
+  <section class="section" id="cover"><div class="container split"><div><p class="eyebrow">Cover your whole circle</p><h2 class="heading">Protection that includes the people closest to you.</h2><p>Explore funeral cover for yourself, your family and extended family. Find an option that fits your needs when product details are available.</p><a class="button button-secondary" href="/cover/#find-cover">See cover options <span class="button-arrow-red" aria-hidden="true">›</span></a></div><div class="circle-card card" aria-label="Cover your whole circle: you, partner, children, parents, siblings, grandparents and in-laws."><span class="ripple ripple-one" aria-hidden="true"></span><span class="ripple ripple-two" aria-hidden="true"></span><span class="ripple ripple-three" aria-hidden="true"></span><span class="ripple ripple-four" aria-hidden="true"></span><span class="circle-label circle-you">You</span><span class="circle-label circle-family">Family</span><span class="circle-label circle-extended"><span class="extended-word">Extended</span><br />family</span><span class="circle-member member-partner">Partner</span><span class="circle-member member-children">Children</span><span class="circle-member member-parents">Parents</span><span class="circle-member member-siblings">Siblings</span><span class="circle-member member-grandparents">Grandparents</span><span class="circle-member member-inlaws">In-laws</span></div></div></section>
+  <section class="section shaded"><div class="container section-header"><p class="eyebrow">Tombstones</p><h2 class="heading">A lasting tribute to someone you love.</h2></div><div class="container split"><div class="tombstone-copy"><p class="eyebrow">Tombstones</p><h2 class="heading">A lasting tribute to someone you love.</h2><p>Browse the TIRO tombstone range and learn about<br />personalisation, installation and lay-bye options.</p><a class="button button-secondary" href="/tombstones/">Explore tombstones <span class="button-arrow-red" aria-hidden="true">›</span></a></div><section class="tombstone-selector" aria-label="Explore tombstone styles"><button class="tombstone-choice active" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/06.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20h14M7 20V9a5 5 0 0 1 10 0v11M12 8v7m-3.5-3.5h7" /></svg></span><span class="choice-label"><strong>Double memorial</strong><small>Classic granite</small></span></button><button class="tombstone-choice" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/05.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 7 7-7 11L5 10l7-7Zm-4 7h8" /></svg></span><span class="choice-label"><strong>Grand memorial</strong><small>Distinctive design</small></span></button><button class="tombstone-choice" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/04.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M7 8h10M5 21h14" /></svg></span><span class="choice-label"><strong>Floral tribute</strong><small>Honouring a life</small></span></button><button class="tombstone-choice" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/03.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V5h12v15M9 9h6M9 13h6" /></svg></span><span class="choice-label"><strong>Classic memorial</strong><small>Lasting tribute</small></span></button><button class="tombstone-choice" type="button" data-tombstone-choice style="--tombstone-image:url('/images/tombstones/02.webp');"><span class="choice-scrim"></span><span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.2 5.1 5.5.5-4.2 3.6 1.3 5.3-4.8-2.8-4.8 2.8 1.3-5.3-4.2-3.6 5.5-.5L12 3Z" /></svg></span><span class="choice-label"><strong>Portrait memorial</strong><small>Personal tribute</small></span></button></section></div></section>
+  <section class="section shaded"><div class="container"><p class="eyebrow">Simple from the start</p><h2 class="heading">How it works</h2><div class="steps"><img src="/images/about/step 1.png" alt="Step 1: Choose cover that works for your circle." loading="lazy" /><img src="/images/about/step 2.png" alt="Step 2: Apply by sharing your details." loading="lazy" /><img src="/images/about/step 3.png" alt="Step 3: Get covered once your application and payment are confirmed." loading="lazy" /></div><a class="button button-primary steps-cta" href="/cover/#find-cover">Find my cover <span aria-hidden="true">›</span></a></div></section>
+  <section class="section why-tiro"><div class="container"><div class="section-header"><h2 class="heading">Built around what matters.</h2></div><div class="why-bento"><article class="why-intro"><h2>Simple to use.<br />Here to help.</h2><p>Practical funeral cover for the people who matter most, with support at every step.</p><span class="why-intro-mark" aria-hidden="true">+</span></article><article class="why-card why-circle"><span class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="3" /></svg></span><h3>Cover your whole circle</h3><p>You. Family. Extended family.</p></article><article class="why-card why-digital"><span class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4h12v16H6zM9 8h6M9 12h6M11 16h2" /></svg></span><h3>Digital convenience</h3><p>Explore your options when it suits you.</p></article><a class="why-support" href="/branches/"><span><strong>Human support</strong><small>Talk to TIRO when you want a person to help.</small></span><b aria-hidden="true">→</b></a></div></div></section>
+  <section class="section testimonials" aria-labelledby="testimonials-title">
+    <div class="container">
+      <div class="section-header testimonials-heading">
+        <p class="eyebrow">Testimonials</p>
+        <h2 class="heading" id="testimonials-title">Real stories from the TIRO community.</h2>
+      </div>
+      <div class="testimonial-thumbnails" aria-label="More TIRO testimonials">
+        {testimonialPlaceholders.map((item, index) => (
+          <a class="testimonial-thumbnail" href={item.href} target="_blank" rel="noreferrer" aria-label={`${item.title}, opens YouTube in a new tab`}>
+            <img src={item.thumbnail} alt="" width="480" height="360" loading="lazy" />
+            <span class="thumbnail-number">{String(index + 1).padStart(2, '0')}</span>
+            <span class="thumbnail-title">{item.title}</span>
+            <span class="thumbnail-play" aria-hidden="true">▶</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section"><div class="container"><div class="section-header"><p class="eyebrow">Learn and branches</p><h2 class="heading">Answers and support, close to home.</h2></div><div class="next-grid"><article class="mini-hero mini-hero--learn"><div class="mini-hero-copy"><p class="eyebrow">Learn</p><h2>Good questions deserve clear answers.</h2><p>Explore plain-language information about cover, claims, tombstones and family finances.</p><a class="button button-secondary" href="/learn/">Visit Learn <span class="mini-hero-button-arrow" aria-hidden="true"></span></a></div><div class="mini-hero-visual" aria-hidden="true"><span>Learn</span></div></article><article class="mini-hero mini-hero--branches"><div class="mini-hero-copy"><p class="eyebrow">Branches</p><h2>Support close to home.</h2><p>TIRO combines online convenience with face-to-face support.</p><a class="button button-secondary" href="/branches/">Find a branch <span class="mini-hero-button-arrow" aria-hidden="true"></span></a></div><div class="mini-hero-visual" aria-hidden="true"><span>TIRO</span></div></article></div></div></section>
 </SiteLayout>
 <script>
   const carousel = document.querySelector<HTMLElement>('.hero-carousel');
@@ -120,14 +152,15 @@ const campaignSlides = [
   .extended-word { position: relative; top: -14px; }
   .circle-member { position: absolute; z-index: 5; padding: 2px 5px; border-radius: 99px; background: #ffffffde; font-size: .64rem; font-weight: 800; line-height: 1.1; white-space: nowrap; box-shadow: 0 2px 8px #071a3d12; }
   .member-partner, .member-children { top: 50%; color: #1763d8; transform: translateY(-50%); }
-  .member-partner { left: 22%; }
-  .member-children { right: 22%; }
+  .member-partner { left: 22%; transform: translate(45px, -50%); }
+  .member-children { right: 22%; transform: translate(-38px, -50%); }
   .member-parents, .member-siblings { color: #ed1b2f; transform: translateY(-50%); }
-  .member-parents { top: 32%; left: 10%; }
-  .member-siblings { top: 68%; right: 10%; }
+  .member-parents { top: 32%; left: 10%; transform: translate(109px, -50%); }
+  .member-siblings { top: 68%; right: 10%; transform: translate(-99px, -50%); }
   .member-grandparents, .member-inlaws { color: #0c3f91; transform: translateY(-50%); }
-  .member-grandparents { top: 20%; left: 1%; }
-  .member-inlaws { top: 80%; right: 2%; }
+  .member-grandparents { top: 20%; left: 1%; transform: translate(260px, calc(-50% + 5px)); }
+  .member-inlaws { top: 80%; right: 2%; transform: translate(-263px, calc(-50% + 40px)); }
+  .button-arrow-red { display: inline-block; color: var(--tiro-red); font-size: 20px !important; font-weight: 900; line-height: 1; transform: scale(1.12); transform-origin: center; }
   @keyframes ripple-breathe { 0%, 100% { transform: translate(-50%, -50%) scale(.98); opacity: .88; } 50% { transform: translate(-50%, -50%) scale(1.03); opacity: 1; } }
   .memorial-art { background: #e9edf3; }
   .memorial-shape { position: absolute; width: 48%; height: 70%; left: 26%; bottom: 14%; border: 13px solid #8795a6; border-bottom: 0; border-radius: 100px 100px 0 0; background: #b5c0cc; }
@@ -138,9 +171,17 @@ const campaignSlides = [
   .tombstone-choice:not(.active) { filter: saturate(.68) brightness(.72); }
   .tombstone-choice.active { flex: 6 1 0; }
   .choice-scrim { position: absolute; inset: 0; background: linear-gradient(to top, #061632e8 0%, #06163210 62%); }
-  .choice-icon { position: absolute; z-index: 1; bottom: 22px; left: 50%; display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid #ffffff8c; border-radius: 50%; background: #071a3dcc; backdrop-filter: blur(8px); transform: translateX(-50%); transition: left 550ms cubic-bezier(.2,.72,.2,1), transform 550ms cubic-bezier(.2,.72,.2,1), background 250ms ease; }
+  .choice-icon { position: absolute; z-index: 1; bottom: 22px; left: 50%; display: grid; width: 52px; height: 52px; place-items: center; border: 1px solid #ffffff8c; border-radius: 50%; background: #fff; backdrop-filter: blur(8px); transform: translateX(-50%); transition: left 550ms cubic-bezier(.2,.72,.2,1), transform 550ms cubic-bezier(.2,.72,.2,1), background 250ms ease; }
   .choice-icon svg { width: 21px; height: 21px; fill: none; stroke: white; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
-  .tombstone-choice.active .choice-icon { left: 18px; background: var(--tiro-red); transform: translateX(0); }
+  .choice-icon { overflow: hidden; }
+  .choice-icon svg { display: none; }
+  .choice-icon::after { content: ''; width: 44px; height: 44px; border-radius: 50%; background: center / contain no-repeat; }
+  .tombstone-choice:nth-child(1) .choice-icon::after { background-image: url('/animated icons/double memorial.gif'); }
+  .tombstone-choice:nth-child(2) .choice-icon::after { background-image: url('/animated icons/grand-memorial.gif'); }
+  .tombstone-choice:nth-child(3) .choice-icon::after { background-image: url('/animated icons/floral-tribute.gif'); }
+  .tombstone-choice:nth-child(4) .choice-icon::after { background-image: url('/animated icons/classic-tribute.gif'); }
+  .tombstone-choice:nth-child(5) .choice-icon::after { background-image: url('/animated icons/portrait-memorial.gif'); }
+  .tombstone-choice.active .choice-icon { left: 18px; background: #fff; transform: translateX(0); }
   .choice-label { position: absolute; z-index: 1; bottom: 24px; left: 74px; display: grid; gap: 4px; overflow: hidden; min-width: 0; text-align: left; }
   .choice-label strong { font-size: 1.1rem; line-height: 1.1; white-space: nowrap; opacity: 0; transform: translateX(20px); transition: opacity 350ms ease 160ms, transform 500ms ease 160ms; }
   .choice-label small { color: #e5efff; font-size: .82rem; white-space: nowrap; opacity: 0; transform: translateX(20px); transition: opacity 350ms ease 220ms, transform 500ms ease 220ms; }
@@ -156,7 +197,11 @@ const campaignSlides = [
   .why-card { padding: 30px; color: var(--tiro-navy); }
   .why-card h3 { max-width: 12ch; margin: 30px 0 8px; font-size: 1.35rem; line-height: 1.1; }
   .why-card p { margin: 0; font-size: .98rem; }
-  .why-circle { background: #e8f0ff; }
+  .why-circle { position: relative; isolation: isolate; overflow: hidden; background: url('/images/about/cover_card.png') center / cover no-repeat; color: white; }
+  .why-circle::before { position: absolute; z-index: 0; inset: 0; content: ''; background: linear-gradient(135deg, #071a3de8 0%, #071a3da8 58%, #071a3d38 100%); }
+  .why-circle > * { position: relative; z-index: 1; }
+  .why-circle .why-icon { border-color: #ffffff80; background: #ffffff1a; }
+  .why-circle h3, .why-circle p { color: white; }
   .why-digital { background: var(--tiro-red); color: white; }
   .why-digital .why-icon { border-color: #ffffff80; background: #ffffff1a; }
   .why-icon { display: grid; width: 44px; height: 44px; place-items: center; border: 1px solid #0c3f9140; border-radius: 14px; background: white; }
@@ -166,20 +211,35 @@ const campaignSlides = [
   .why-support span { display: grid; gap: 8px; }
   .why-support strong { font-size: clamp(1.5rem, 2.2vw, 2.15rem); line-height: 1; }
   .why-support small { font-size: 1rem; }
-  .why-support b { display: grid; width: 64px; height: 64px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: white; color: var(--tiro-red); font-size: 2rem; font-weight: 400; }
+  .why-support b { display: grid; width: 64px; height: 64px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: white; color: transparent; font-size: 0; }
+  .why-support b::after { width: 30px; height: 30px; content: ''; background: url('/brand/arrow.png') center / contain no-repeat; transform: translate(3px, -6px); }
   .steps, .benefits { display: grid; gap: 16px; margin-top: 32px; }
-  .steps .card { display: grid; align-content: center; min-height: 190px; padding: 24px 28px; border: 1px solid #ffffff3b; border-radius: 15px; background: linear-gradient(135deg, #122f61, #1d447d); color: white; box-shadow: 0 14px 30px #071a3d14; }
+  .steps > img { display: block; width: 100%; height: auto; }
+  .steps-cta { margin-top: 26px; }
+  @media (min-width: 720px) { .steps { gap: 0; margin-inline: -30px; } }
+  .steps .card { padding: 0; }
   .benefits .card { padding: 28px; }
   .benefits h3 { margin: 0 0 8px; color: var(--tiro-navy); font-size: 1.25rem; }
   .benefits p { margin: 0; }
-  .steps span { color: #ff5a69; font-size: 1.5rem; font-weight: 800; }
-  .steps h3 { margin: 16px 0 8px; color: white; font-size: 1.4rem; }
-  .steps p { margin: 0; color: #dbe8ff; }
+  .steps .mini-hero-copy h3 { max-width: 16ch; margin: 0; color: var(--tiro-navy); font-size: clamp(1.3rem, 1.85vw, 1.55rem); line-height: .98; letter-spacing: -.045em; }
+  .steps .mini-hero-copy p:not(.eyebrow) { max-width: 38ch; margin: 8px 0 0; color: var(--tiro-grey); font-size: .78rem; line-height: 1.4; }
   .final-cta { background: var(--tiro-soft-white); }
   .final-cta .container { max-width: 840px; text-align: center; }
   .final-cta .eyebrow { margin-bottom: 16px; }
   .final-cta p:not(.eyebrow) { font-size: 1.1rem; }
   .final-cta .button { margin-top: 18px; }
+  .testimonials { background: var(--tiro-soft-white); }
+  .testimonials-heading { text-align: left; }
+  .testimonials-heading .heading { margin-inline: 0; }
+  .testimonial-thumbnails { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(10px, 2vw, 20px); }
+  .testimonial-thumbnail { position: relative; width: calc(100% - 24px); justify-self: center; isolation: isolate; aspect-ratio: 16 / 9; overflow: hidden; border-radius: clamp(12px, 2vw, 20px); background: var(--tiro-navy); color: white; text-decoration: none; box-shadow: 0 12px 28px #071a3d12; }
+  .testimonial-thumbnail::after { position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg, transparent 35%, #071a3de8 100%); content: ''; }
+  .testimonial-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform 240ms ease; }
+  .testimonial-thumbnail:hover img { transform: scale(1.035); }
+  .thumbnail-number, .thumbnail-title, .thumbnail-play { position: absolute; z-index: 2; }
+  .thumbnail-number { top: 12px; left: 12px; color: #dbe8ff; font-size: clamp(.58rem, 1vw, .75rem); font-weight: 800; letter-spacing: .08em; }
+  .thumbnail-title { right: 48px; bottom: 14px; left: 14px; overflow: hidden; font-size: clamp(.7rem, 1.5vw, 1rem); font-weight: 800; line-height: 1.1; text-overflow: ellipsis; white-space: nowrap; }
+  .thumbnail-play { right: 12px; bottom: 11px; display: grid; width: clamp(26px, 4vw, 38px); height: clamp(26px, 4vw, 38px); place-items: center; border-radius: 50%; background: var(--tiro-red); font-size: clamp(.55rem, 1vw, .75rem); }
   .next-grid { display: grid; gap: 24px; }
   .mini-hero { position: relative; display: grid; min-height: 148px; overflow: hidden; border: 1px solid #d9e2f0; border-radius: 18px; background: white; box-shadow: 0 12px 28px #071a3d0d; }
   .mini-hero-copy { position: relative; z-index: 2; padding: 14px; }
@@ -187,6 +247,7 @@ const campaignSlides = [
   .mini-hero-copy h2 { max-width: 16ch; margin: 0; color: var(--tiro-navy); font-size: clamp(1.3rem, 1.85vw, 1.55rem); line-height: .98; letter-spacing: -.045em; }
   .mini-hero-copy p:not(.eyebrow) { max-width: 38ch; margin: 8px 0 0; font-size: .78rem; line-height: 1.4; }
   .mini-hero-copy .button { min-height: 36px; margin-top: 10px; padding: 7px 13px; font-size: .78rem; }
+  .mini-hero-button-arrow { display: inline-block; width: 14px; height: 14px; background: url('/brand/arrow.png') center / contain no-repeat; }
   .mini-hero-visual { position: absolute; top: 0; right: 0; bottom: 0; width: 34%; display: grid; place-items: center; overflow: hidden; clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
   .mini-hero.is-revealed .mini-hero-visual { animation: mini-image-reveal 1.2s cubic-bezier(.075, .82, .165, 1) forwards; }
   .mini-hero-visual::before, .mini-hero-visual::after { content: ''; position: absolute; border: 1px solid #ffffff66; border-radius: 50%; }
@@ -195,11 +256,14 @@ const campaignSlides = [
   .mini-hero-visual span { position: relative; z-index: 1; color: white; font-size: clamp(1.4rem, 3vw, 2.35rem); font-weight: 900; letter-spacing: -.06em; transform: rotate(-90deg); }
   .mini-hero--learn .mini-hero-visual { background: linear-gradient(145deg, #ed1b2f, #9d0717); }
   .mini-hero--branches .mini-hero-visual { background: linear-gradient(145deg, #0d4da8, #061b43); }
+  .step-card--choose .mini-hero-visual { background: linear-gradient(145deg, #ed1b2f, #9d0717); }
+  .step-card--apply .mini-hero-visual { background: linear-gradient(145deg, #0d4da8, #061b43); }
+  .step-card--covered .mini-hero-visual { background: linear-gradient(145deg, #ed1b2f, #9d0717); }
   @keyframes mini-image-reveal { from { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); } to { clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%); } }
-  @media (min-width: 720px) { .proof { padding-block: 21px; } .proof-card { width: 315px; min-height: 128px; padding: 21px; } .steps, .benefits { grid-template-columns: repeat(3, 1fr); } .why-bento { grid-template-columns: 1.15fr .85fr .85fr; grid-template-rows: repeat(2, minmax(170px, 1fr)); } .why-intro { grid-row: span 2; } .why-support { grid-column: span 2; } }
+  @media (min-width: 720px) { .proof { padding-block: 21px; } .proof-card { width: 315px; min-height: 128px; padding: 21px; } .steps, .benefits { grid-template-columns: repeat(3, 1fr); } .testimonial-thumbnails { grid-template-columns: repeat(4, minmax(0, 1fr)); } .why-bento { grid-template-columns: 1.15fr .85fr .85fr; grid-template-rows: repeat(2, minmax(170px, 1fr)); } .why-intro { grid-row: span 2; } .why-support { grid-column: span 2; } }
   @media (min-width: 960px) { .hero-grid { grid-template-columns: 1.4fr .7fr; } .split { grid-template-columns: 1fr 1fr; } .shaded .split { grid-template-columns: 1.3fr .7fr; } .shaded .tombstone-copy { order: 2; } .next-grid { grid-template-columns: 1fr 1fr; } }
   @media (min-width: 960px) { .hero-grid { grid-template-columns: 1.15fr .95fr; gap: 24px; } }
   @media (min-width: 960px) { .hero-grid { grid-template-columns: 1fr; } }
   @media (max-width: 640px) { .tombstone-selector { min-height: 310px; } .tombstone-choice { min-width: 38px; padding: 16px 10px; } .tombstone-choice.active { flex: 5 1 0; } .choice-icon { bottom: 16px; width: 36px; height: 36px; } .tombstone-choice.active .choice-icon { left: 12px; } .choice-label { bottom: 18px; left: 58px; } .circle-member { padding: 1px 3px; font-size: .53rem; } }
-  @media (prefers-reduced-motion: reduce) { .campaign-slide, .ripple, .proof-track, .mini-hero-visual::before, .mini-hero-visual::after, .mini-hero-visual span, .mini-hero.is-revealed .mini-hero-visual { transition: none; animation: none; } .mini-hero-visual { clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%); } }
+  @media (prefers-reduced-motion: reduce) { .campaign-slide, .ripple, .proof-track, .testimonial-thumbnail img, .mini-hero-visual::before, .mini-hero-visual::after, .mini-hero-visual span, .mini-hero.is-revealed .mini-hero-visual { transition: none; animation: none; } .mini-hero-visual { clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%); } }
 </style>

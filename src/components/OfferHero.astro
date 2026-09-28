@@ -6,10 +6,11 @@ interface Props {
   headingMiddle?: string;
   headingHighlight?: string;
   lead?: string;
-  highlightPrimary?: { label: string; value: string; sub: string };
-  highlightSecondary?: { label: string; value: string; sub: string };
+  highlightPrimary?: { label?: string; value: string; sub?: string; href?: string; variant?: 'metric' | 'service-title' | 'service-copy' };
+  highlightSecondary?: { label?: string; value: string; sub?: string; href?: string; variant?: 'metric' | 'service-title' | 'service-copy' };
+  hideSecondary?: boolean;
   primaryCta?: { label: string; href: string };
-  secondaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string; phone?: string };
   note?: string;
   badgeRect?: { label: string; value: string; sub: string };
   badgeCircle?: { label: string; value: string; sub: string };
@@ -28,10 +29,11 @@ const {
   headingMiddle,
   headingHighlight = 'from R60 a month.',
   lead = 'Protection for you, your family and extended family—with a simple journey and real support when it matters.',
-  highlightPrimary = { label: 'Get up to', value: 'R35 000', sub: 'funeral cover' },
-  highlightSecondary = { label: 'Plus', value: 'R500', sub: 'airtime' },
-  primaryCta = { label: 'Find my cover', href: '/cover/discover/' },
-  secondaryCta = { label: 'Explore funeral cover', href: '/cover/' },
+  highlightPrimary = { value: 'Excellent Client Service', variant: 'service-title' },
+  highlightSecondary = { value: '', sub: 'Our highly trained, friendly consultants are committed to delivering the best service in helping you choose the best plans and tombstones for you and your loved ones.', variant: 'service-copy' },
+  hideSecondary = false,
+  primaryCta = { label: 'Find my cover', href: '/cover/#find-cover' },
+  secondaryCta = { label: 'Call now!', phone: '079 511 2330', href: 'tel:+27795112330' },
   note = 'Promotional offer subject to TIRO terms, eligibility and policy conditions. TIRO funeral cover is underwritten by KGA Life Insurance.',
   badgeRect = { label: 'Get up to', value: 'R35 000', sub: 'cover for your whole circle' },
   badgeCircle = { label: 'Plus', value: 'R500', sub: 'airtime' },
@@ -54,18 +56,29 @@ if (headingSize) rootStyle += `--heading-size:${headingSize};`;
       <p class="eyebrow">{eyebrow}</p>
       <h1 id={id}><span class:list={['heading-lead', { 'heading-lead--no-wrap': id === 'tombstone-offer-heading' }]}>{headingLead}</span>{headingMiddle && <span class="heading-middle">{headingMiddle}</span>}<span>{headingHighlight}</span></h1>
       <p class="offer-lead">{lead}</p>
-      <div class="offer-highlights" aria-label="Current cover offer highlights">
-        <div><span>{highlightPrimary.label}</span><strong>{highlightPrimary.value}</strong><span>{highlightPrimary.sub}</span></div>
-        <div><span>{highlightSecondary.label}</span><strong>{highlightSecondary.value}</strong><span>{highlightSecondary.sub}</span></div>
+      <div class:list={['offer-highlights', { 'offer-highlights--service': highlightPrimary.variant === 'service-title' }]} aria-label="Current cover offer highlights">
+        {[highlightPrimary, ...(hideSecondary ? [] : [highlightSecondary])].map((highlight) => (
+          highlight.href ? (
+            <a class:list={['highlight-card', 'highlight-card--link', `highlight-card--${highlight.variant ?? 'metric'}`]} href={highlight.href}>
+              {highlight.variant === 'service-copy' ? <p>{highlight.sub ?? highlight.value}</p> : <>{highlight.label && <span>{highlight.label}</span>}<strong>{highlight.value}</strong>{highlight.sub && <span>{highlight.sub}</span>}</>}
+            </a>
+          ) : (
+            <div class:list={['highlight-card', `highlight-card--${highlight.variant ?? 'metric'}`]}>
+              {highlight.variant === 'service-copy' ? <p>{highlight.sub ?? highlight.value}</p> : <>{highlight.label && <span>{highlight.label}</span>}<strong>{highlight.value}</strong>{highlight.sub && <span>{highlight.sub}</span>}</>}
+            </div>
+          )
+        ))}
       </div>
       <div class="offer-actions">
         <a class="button button-primary" href={primaryCta.href}>{primaryCta.label} <span aria-hidden="true">›</span></a>
-        <a class="offer-link" href={secondaryCta.href}>{secondaryCta.label} <span aria-hidden="true">›</span></a>
+        <a class:list={['offer-link', { 'offer-link--phone': secondaryCta.phone }]} href={secondaryCta.href} style={secondaryCta.phone ? 'display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;white-space:nowrap;color:#fff;' : undefined}>
+          {secondaryCta.phone ? <><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:0 0 20px;"><path d="M5.8 3.5 9 3.1l1.5 4.4-2 1.7a15.1 15.1 0 0 0 6.3 6.3l1.7-2 4.4 1.5-.4 3.2a2 2 0 0 1-2 1.8C10.9 20 4 13.1 4 5.5a2 2 0 0 1 1.8-2Z" /></svg><span>{secondaryCta.label}</span><b>{secondaryCta.phone}</b></> : <><span>{secondaryCta.label}</span><span aria-hidden="true">›</span></>}
+        </a>
       </div>
       <p class="offer-note">{note}</p>
     </div>
     <div class="offer-visual" aria-hidden="true">
-      {showOutline && <div class="offer-outline"></div>}
+      {showOutline && <div class="offer-outline">{id === 'tombstone-offer-heading' && <img class="tombstone-feature" src="/images/tombstones/05.webp" alt="" />}</div>}
       {showPoster && <div class={`campaign-poster${posterFramed ? '' : ' campaign-poster--frameless'}`} style={posterStyle}></div>}
       <div class="cover-amount"><span>{badgeRect.label}</span><strong>{badgeRect.value}</strong><span>{badgeRect.sub}</span></div>
       <div class="airtime-badge"><span>{badgeCircle.label}</span><strong>{badgeCircle.value}</strong><span>{badgeCircle.sub}</span></div>
@@ -92,27 +105,36 @@ if (headingSize) rootStyle += `--heading-size:${headingSize};`;
   .offer-hero--tombstones h1 .heading-lead--no-wrap { white-space: nowrap; }
   .offer-lead { max-width: 590px; margin: 0; color: #f0f5ff; font-size: clamp(1.08rem, 1.7vw, 1.28rem); }
   .offer-highlights { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-  .offer-highlights > div { display: grid; align-content: center; min-width: 170px; min-height: 104px; padding: 16px 20px; border: 1px solid #ffffff3b; border-radius: 15px; background: #ffffff12; backdrop-filter: blur(8px); }
+  .offer-highlights > :is(div, a) { display: grid; align-content: center; min-width: 170px; min-height: 104px; padding: 16px 20px; border: 1px solid #ffffff3b; border-radius: 15px; background: #ffffff12; backdrop-filter: blur(8px); }
+  .offer-highlights > a { color: white; text-decoration: none; cursor: pointer; transition: background 180ms ease, border-color 180ms ease, transform 180ms ease; }
+  .offer-highlights > a:hover { border-color: #fff; background: #ffffff24; transform: translateY(-2px); }
   .offer-highlights span { color: #dbe8ff; font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
   .offer-highlights strong { color: white; font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1.05; }
-  .offer-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 30px; }
+  .offer-highlights--service { display: grid; grid-template-columns: minmax(190px, .9fr) minmax(0, 1.1fr); max-width: 690px; align-items: stretch; }
+  .offer-highlights--service .highlight-card { min-width: 0 !important; max-width: none; }  .highlight-card--service-title strong { font-size: clamp(1.3rem, 1.85vw, 1.6rem); line-height: 1.08; }
+  .highlight-card--service-copy p { max-width: 38ch; margin: 0; color: #f1f6ff; font-size: .79rem; line-height: 1.42; }  .offer-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 30px; }
   .offer-actions .button-primary { background: var(--accent-text, var(--tiro-red)); }
   .offer-actions .button-primary:hover { background: var(--accent-text, var(--tiro-red)); filter: brightness(0.88); }
   .offer-link { color: white; font-weight: 800; text-decoration: underline; text-decoration-color: #ed1b2f; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+  .offer-hero--tombstones .offer-link:not(.offer-link--phone) span:last-child { display: inline-block; margin-left: 4px; color: var(--tiro-red); font-size: calc(1em + 2px); line-height: 1; }
+  .offer-link--phone { display: inline-flex; align-items: center; gap: 8px; flex: 0 0 auto; color: white; text-decoration: none; white-space: nowrap; }.offer-link--phone > span { font-size: 1.0625rem; text-decoration: underline; text-decoration-color: #ed1b2f; text-decoration-thickness: 2px; text-underline-offset: 6px; }.offer-link--phone svg { display: block; width: 20px; height: 20px; flex: 0 0 20px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }.offer-link--phone b { margin-left: 10px; color: white; font-size: calc(1.15rem + 3px); }
   .offer-note { max-width: 630px; margin: 22px 0 0; color: #cbd8eb; font-size: .76rem; line-height: 1.45; }
-  .offer-visual { position: relative; min-height: 500px; transform: translateY(-70px) scale(.85); transform-origin: top center; }
-  .offer-hero--tombstones .offer-visual { transform: translateY(-65px) scale(.85); }
-  .offer-outline { position: absolute; inset: 7% 3% 4% 13%; border: 2px solid #ffffffa6; border-radius: 24px; }
+  .offer-visual { position: relative; min-height: 500px; transform: translate(50px, -85px) scale(.765); transform-origin: top center; }
+  .offer-hero--tombstones .offer-visual { transform: translate(65px, -65px) scale(.85); }
+  .offer-outline { position: absolute; inset: 7% 3% 4% 13%; overflow: hidden; border: 2px solid #ffffffa6; border-radius: 24px; }
+  .tombstone-feature { position: absolute; inset: 0; display: block; width: 100% !important; height: 100% !important; max-width: none; object-fit: cover; }
   .campaign-poster { position: absolute; z-index: 2; top: 5%; right: 7%; width: min(54%, 295px); aspect-ratio: .43; border: 5px solid white; border-radius: 18px; background: var(--poster-image) var(--poster-position) / var(--poster-size) no-repeat; box-shadow: 0 28px 56px #0006; transform: rotate(3deg); }
   .campaign-poster--frameless { border: 0; border-radius: 0; box-shadow: none; }
   .cover-amount { position: absolute; z-index: 3; bottom: 8%; left: 0; display: grid; padding: 20px 24px; border-radius: 18px; background: var(--accent-badge, #ed1b2f); box-shadow: 0 18px 38px #0004; transform: rotate(-3deg); }
   .offer-hero:not(.offer-hero--tombstones) .cover-amount { transform: translate(-90px, 25px) rotate(-3deg) scale(.85); transform-origin: center; }
+  .offer-hero--tombstones .cover-amount { transform: translate(-95px, 20px) rotate(-3deg) scale(.7); transform-origin: center; }
   .cover-amount span { font-size: .8rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
   .cover-amount strong { font-size: clamp(2.3rem, 5vw, 4.5rem); line-height: .95; letter-spacing: -.06em; }
   .airtime-badge { position: absolute; z-index: 4; top: 31%; left: 1%; display: grid; width: 128px; height: 128px; place-content: center; border: 4px solid white; border-radius: 50%; background: var(--accent-badge, #ed1b2f); text-align: center; box-shadow: 0 15px 30px #0004; transform: rotate(-11deg); }
   .airtime-badge span { font-size: .76rem; font-weight: 800; line-height: 1; text-transform: uppercase; }
   .airtime-badge strong { font-size: 2.1rem; line-height: 1.05; }
+  .offer-hero--tombstones .airtime-badge { transform: rotate(-11deg) scale(.9); transform-origin: center; }
   @media (min-width: 940px) { .offer-grid { grid-template-columns: minmax(0, 1.1fr) minmax(390px, .9fr); } }
   @media (max-width: 939px) { .offer-visual { max-width: 540px; width: 100%; margin-inline: auto; min-height: 420px; } }
-  @media (max-width: 560px) { .offer-visual { min-height: 350px; } .campaign-poster { width: 48%; } .cover-amount { padding: 15px 17px; } .airtime-badge { width: 102px; height: 102px; } .airtime-badge strong { font-size: 1.7rem; } }
+  @media (max-width: 560px) { .offer-highlights--service { grid-template-columns: 1fr; } .offer-visual { min-height: 350px; } .campaign-poster { width: 48%; } .cover-amount { padding: 15px 17px; } .airtime-badge { width: 102px; height: 102px; } .airtime-badge strong { font-size: 1.7rem; } }
 </style>

@@ -1,6 +1,16 @@
 @import "tailwindcss";
 @import "@fontsource-variable/manrope/index.css";
 
+@theme inline {
+  --color-primary: var(--tiro-blue);
+  --color-foreground: var(--tiro-navy);
+  --color-muted-foreground: var(--tiro-grey);
+  --color-border: #d9e2f0;
+  --color-muted: var(--tiro-light-grey);
+  --color-card: #ffffff;
+  --color-background: #ffffff;
+}
+
 :root {
   color-scheme: light;
   font-family: "Manrope Variable", Inter, Arial, sans-serif;
