@@ -140,7 +140,7 @@ const testimonialPlaceholders = [
   .tombstone-copy > .eyebrow, .tombstone-copy > .heading { display: none; }
   .circle-card, .memorial-art { min-height: 320px; position: relative; overflow: hidden; background: var(--tiro-soft-white); }
   .circle-card { min-height: 562px; display: grid; place-items: center; isolation: isolate; overflow: visible; border: 0; background: transparent; }
-  .ripple { position: absolute; top: 50%; left: 50%; border: 2px solid white; border-radius: 50%; box-shadow: 0 14px 28px #071a3d24, inset 0 1px #ffffff66; animation: ripple-breathe 5s ease-in-out infinite; }
+  .ripple { position: absolute; top: 50%; left: 50%; border: 2px solid white; border-radius: 50%; box-shadow: 0 14px 28px #071a3d24, inset 0 1px #ffffff66; transform: translate(-50%, -50%); animation: ripple-breathe 5s ease-in-out infinite; }
   .ripple-one { z-index: 4; width: 156px; height: 156px; border: 0; background: radial-gradient(circle at 35% 25%, #f33a4b, #b9081c); box-shadow: 0 14px 28px #071a3d30; }
   .ripple-two { z-index: 3; width: 257px; height: 257px; border-color: #1763d8; background: transparent; animation-delay: -.8s; }
   .ripple-three { z-index: 2; width: 360px; height: 360px; border-color: #ed1b2f; background: transparent; animation-delay: -1.6s; }
@@ -152,14 +152,14 @@ const testimonialPlaceholders = [
   .extended-word { position: relative; top: -14px; }
   .circle-member { position: absolute; z-index: 5; padding: 2px 5px; border-radius: 99px; background: #ffffffde; font-size: .64rem; font-weight: 800; line-height: 1.1; white-space: nowrap; box-shadow: 0 2px 8px #071a3d12; }
   .member-partner, .member-children { top: 50%; color: #1763d8; transform: translateY(-50%); }
-  .member-partner { left: 22%; transform: translate(45px, -50%); }
-  .member-children { right: 22%; transform: translate(-38px, -50%); }
+  .member-partner { left: 22%; }
+  .member-children { right: 22%; }
   .member-parents, .member-siblings { color: #ed1b2f; transform: translateY(-50%); }
-  .member-parents { top: 32%; left: 10%; transform: translate(109px, -50%); }
-  .member-siblings { top: 68%; right: 10%; transform: translate(-99px, -50%); }
+  .member-parents { top: 32%; left: 10%; }
+  .member-siblings { top: 68%; right: 10%; }
   .member-grandparents, .member-inlaws { color: #0c3f91; transform: translateY(-50%); }
-  .member-grandparents { top: 20%; left: 1%; transform: translate(260px, calc(-50% + 5px)); }
-  .member-inlaws { top: 80%; right: 2%; transform: translate(-263px, calc(-50% + 40px)); }
+  .member-grandparents { top: 20%; left: 1%; }
+  .member-inlaws { top: 80%; right: 2%; }
   .button-arrow-red { display: inline-block; color: var(--tiro-red); font-size: 20px !important; font-weight: 900; line-height: 1; transform: scale(1.12); transform-origin: center; }
   @keyframes ripple-breathe { 0%, 100% { transform: translate(-50%, -50%) scale(.98); opacity: .88; } 50% { transform: translate(-50%, -50%) scale(1.03); opacity: 1; } }
   .memorial-art { background: #e9edf3; }
